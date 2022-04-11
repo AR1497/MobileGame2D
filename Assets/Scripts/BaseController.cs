@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -27,8 +26,6 @@ public abstract class BaseController : IDisposible
 
     public void Dispose()
     {
-        if (_isDisposed)
-            return;
         OnDispose();
 
         foreach (var go in _gameObjects)
@@ -45,5 +42,7 @@ public abstract class BaseController : IDisposible
             controller?.Dispose();
         }
         _controllers.Clear();
+
+        OnDispose();
     }
 }

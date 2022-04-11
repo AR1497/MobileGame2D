@@ -1,7 +1,6 @@
 using Profile;
 using UnityEngine;
 using JoostenProductions;
-using Profile;
 using System.Collections.Generic;
 
 public class MainMenuController : BaseController
