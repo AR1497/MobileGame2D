@@ -94,10 +94,7 @@ public class MainMenuController : BaseController
     private GameObject CreateNewTrailRenderer()
     {
         var go = new GameObject();
-        //go.layer = SortingLayer.NameToID("UI");
         var tr = go.AddComponent<TrailRenderer>();
-        //tr.sortingLayerName = "UI";
-        //tr.sortingOrder = 1;
         tr.startColor = Color.white;
         tr.endColor = Color.black;
         tr.material = new Material(Shader.Find("Sprites/Default"));
