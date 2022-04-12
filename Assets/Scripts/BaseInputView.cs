@@ -8,7 +8,7 @@ using UnityEngine;
 
     protected float _speed;
 
-    public void Init(SubscriptionProperty<float> leftMove, SubscriptionProperty<float> rightMove, float speed)
+    public virtual void Init(SubscriptionProperty<float> leftMove, SubscriptionProperty<float> rightMove, float speed)
     {
         _leftMove = leftMove;
         _rightMove = rightMove;
