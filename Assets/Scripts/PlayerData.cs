@@ -1,14 +1,14 @@
 using Tools;
+using Profile;
 
 public class PlayerData
 {
-    public PlayerData()
+    public PlayerData(float speedCar)
     {
-        Car = new Car(1f);
-        GameState = new SubscriptionProperty<GameState>();
-        GameState.Value = global::GameState.None;
+        CurrentState = new SubscriptionProperty<GameState>();
+        CurrentCar = new Car(speedCar);
     }
 
-    public Car Car { get; }
-    public SubscriptionProperty<GameState> GameState { get; set; }
+    public Car CurrentCar { get; }
+    public SubscriptionProperty<GameState> CurrentState { get; }
 }

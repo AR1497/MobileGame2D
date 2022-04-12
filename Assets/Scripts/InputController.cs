@@ -1,32 +1,22 @@
-using JoostenProductions;
 using Tools;
 using UnityEngine;
-using UnityStandardAssets.CrossPlatformInput;
 
 internal class InputController : BaseController
 {
+    public InputController(SubscriptionProperty<float> leftMove, SubscriptionProperty<float> rightMove, Car car)
+    {
+        _inputView = LoadView();
+        _inputView.Init(leftMove, rightMove, car.Speed);
+    }
+
     private BaseInputView _inputView;
-    private readonly SubscriptionProperty<float> _movement;
+    private readonly ResourcePath _viewPath = new ResourcePath { PathResource = "Prefabs/StickControl" };
 
-    public InputController(SubscriptionProperty<float> movement)
+    private BaseInputView LoadView()
     {
-        _movement = movement;
-        var prefab = ResourceLoader.LoadPrefab(new ResourcePath() { PathResource = "Prefabs/StickControl" });
-        var go = GameObject.Instantiate(prefab);
-        AddGameObject(go);
-        _inputView = go.GetComponent<BaseInputView>();
+        var objView = Object.Instantiate(ResourceLoader.LoadPrefab(_viewPath));
+        AddGameObject(objView);
 
-        UpdateManager.SubscribeToUpdate(OnUpdate);
-    }
-
-    private void OnUpdate()
-    {
-        _movement.Value = CrossPlatformInputManager.GetAxis("Horizontal");
-    }
-
-    protected override void OnDispose()
-    {
-        UpdateManager.UnsubscribeFromUpdate(OnUpdate);
-        base.OnDispose();
+        return objView.GetComponent<BaseInputView>();
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -7,7 +8,31 @@ public abstract class BaseController : IDisposible
     private List<GameObject> _gameObjects = new List<GameObject>();
     private List<BaseController> _controllers = new List<BaseController>();
 
-    private bool _isDisposed = false;
+    private bool _isDisposed;
+    public void Dispose()
+    {
+        if (_isDisposed)
+            return;
+
+        _isDisposed = true;
+
+        foreach (var cachedGameObject in _gameObjects)
+        {
+            if (cachedGameObject != null)
+            {
+                GameObject.Destroy(cachedGameObject);
+            }
+        }
+        _gameObjects.Clear();
+
+        foreach (var controller in _controllers)
+        {
+            controller?.Dispose();
+        }
+        _controllers.Clear();
+
+        OnDispose();
+    }
 
     protected void AddGameObject(GameObject gameObject)
     {
@@ -22,27 +47,5 @@ public abstract class BaseController : IDisposible
     protected virtual void OnDispose()
     {
 
-    }
-
-    public void Dispose()
-    {
-        OnDispose();
-
-        foreach (var go in _gameObjects)
-        {
-            if (go != null)
-            {
-                GameObject.Destroy(go);
-            }
-        }
-        _gameObjects.Clear();
-
-        foreach (var controller in _controllers)
-        {
-            controller?.Dispose();
-        }
-        _controllers.Clear();
-
-        OnDispose();
     }
 }

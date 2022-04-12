@@ -1,6 +1,5 @@
 using JoostenProductions;
 using Tools;
-using Profile;
 using UnityEngine;
 
 internal class InputAcceleration : BaseInputView
@@ -18,17 +17,14 @@ internal class InputAcceleration : BaseInputView
 
     private void Move()
     {
-        Vector3 direction = Vector3.zero;
+        var direction = Vector3.zero;
         direction.x = -Input.acceleration.y;
         direction.z = Input.acceleration.x;
 
         if (direction.sqrMagnitude > 1)
             direction.Normalize();
 
-        if (direction.x > 0)
-            OnRightMove(direction.sqrMagnitude / 20 * _speed * direction.x);
-        else if (direction.x < 0)
-            OnLeftMove(direction.sqrMagnitude / 20 * _speed * direction.x);
+        OnRightMove(direction.sqrMagnitude / 20 * _speed);
     }
 }
 
