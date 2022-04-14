@@ -1,6 +1,7 @@
 using UnityEngine;
+using System;
 
-public class CarController : BaseController
+public class CarController : BaseController, IAbilityActivator
 {   
     private readonly ResourcePath _viewPath = new ResourcePath { PathResource = "Prefabs/Car" };
     private readonly CarView _carView;
@@ -21,5 +22,10 @@ public class CarController : BaseController
     public GameObject GetViewObject()
     {
         return _carView.gameObject;
+    }
+
+    GameObject IAbilityActivator.GetViewObject()
+    {
+        throw new System.NotImplementedException();
     }
 }
