@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ShedController : BaseController
@@ -9,6 +10,7 @@ public class ShedController : BaseController
     private readonly UpgradeHandlersRepository _upgradeHandlersRepository;
     private readonly ItemsRepository _upgradeItemsRepository;
     private readonly InventoryModel _inventoryModel;
+    private readonly InventoryView _inventoryView;
     private readonly InventoryController _inventoryController;
     #region Life cycle
     public ShedController(
@@ -24,7 +26,8 @@ public class ShedController : BaseController
         value.itemConfig).ToList());
         AddController(_upgradeItemsRepository);
         _inventoryModel = new InventoryModel();
-        _inventoryController = new InventoryController(_inventoryModel, _upgradeItemsRepository);
+        _inventoryView = new InventoryView();
+        _inventoryController = new InventoryController(_inventoryModel, _upgradeItemsRepository, _inventoryView);
         AddController(_inventoryController);
     }
 
