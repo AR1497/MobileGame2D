@@ -6,6 +6,8 @@ public class AbilityRepository : BaseController, IAbilityRepository
 {
     public IReadOnlyDictionary<int, IAbility> AbilitiesMap { get => _abilitiesMap; }
 
+    public IReadOnlyDictionary<int, IAbility> AbilityMapByItemId => throw new NotImplementedException();
+
     private Dictionary<int, IAbility> _abilitiesMap = new Dictionary<int, IAbility>();
 
     public AbilityRepository(IReadOnlyList<AbilityItemConfig> abilities)
@@ -18,12 +20,12 @@ public class AbilityRepository : BaseController, IAbilityRepository
 
     private IAbility CreateAbility(AbilityItemConfig config)
     {
-        switch (config.Type)
+        switch (config.type)
         {
             case AbilityType.None:
                 return AbilityStub.Default;
             case AbilityType.Gun:
-                return new GunAbility(config.View, config.value);
+                return new GunAbility(config.view, config.value);
             default:
                 throw new ArgumentOutOfRangeException();
         }
