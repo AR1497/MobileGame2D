@@ -6,32 +6,30 @@ using Tools.Ads;
 public class MainMenuController : BaseController
 {
     private readonly ResourcePath _viewPath = new ResourcePath { PathResource = "Prefabs/mainMenu" };
-    private readonly PlayerData _model;
-    private readonly IAnalyticTools _analytics;
-    private readonly IAdsShower _ads;
+    private readonly PlayerData _profilePlayer;
     private readonly MainMenuView _view;
 
-    public MainMenuController(PlayerData model, Transform uiRoot, IAnalyticTools analytics, IAdsShower ads)
+    public MainMenuController(Transform placeForUi, PlayerData profilePlayer)
     {
-        _model = model;
-        _analytics = analytics;
-        _ads = ads;
-        _view = LoadView(uiRoot);
+        _profilePlayer = profilePlayer;
+        _view = LoadView(placeForUi);
         _view.Init(StartGame);
     }
 
     private MainMenuView LoadView(Transform placeForUi)
     {
         var objectView = Object.Instantiate(ResourceLoader.LoadPrefab(_viewPath), placeForUi, false);
-        AddGameObject(objectView);
+        AddGameObjects(objectView);
 
         return objectView.GetComponent<MainMenuView>();
     }
 
     private void StartGame()
     {
-        _analytics.SendMessage("Start", new Dictionary<string, object>());
-        _ads.ShowInterstitial();
-        _model.CurrentState.Value = GameState.Game;
+        _profilePlayer.CurrentState.Value = GameState.Game;
+
+        _profilePlayer.AnalyticTools.SendMessage("start_game",
+            new Dictionary<string, object>() { {"time", Time.realtimeSinceStartup }
+    });
     }
 }

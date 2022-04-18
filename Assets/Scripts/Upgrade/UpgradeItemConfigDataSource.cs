@@ -4,5 +4,8 @@ using UnityEngine;
 "UpgradeItemConfigDataSource", order = 0)]
 public class UpgradeItemConfigDataSource : ScriptableObject
 {
-    public UpgradeItemConfig[] itemConfigs;
+    [SerializeField]
+    public UpgradeItemConfig[] _itemConfigs;
+
+    public UpgradeItemConfig[] ItemConfigs => _itemConfigs;
 }

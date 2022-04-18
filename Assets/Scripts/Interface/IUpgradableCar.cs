@@ -1,4 +1,4 @@
-﻿public interface IUpgradableCar1
+﻿public interface IUpgradableCar2
 {
     float Speed { get; set; }
 

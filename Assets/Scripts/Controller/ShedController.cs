@@ -6,56 +6,46 @@ using UnityEngine;
 
 public class ShedController : BaseController
 {
+    private readonly IReadOnlyList<UpgradeItemConfig> _upgradeItems;
     private readonly Car _car;
-    private readonly UpgradeHandlersRepository _upgradeHandlersRepository;
-    private readonly ItemsRepository _upgradeItemsRepository;
-    private readonly InventoryModel _inventoryModel;
-    private readonly InventoryView _inventoryView;
+    private readonly UpgradeHandlersRepository _upgradeRepository;
     private readonly InventoryController _inventoryController;
-    #region Life cycle
-    public ShedController(
-    [NotNull] List<UpgradeItemConfig> upgradeItemConfigs,
-    [NotNull] Car car)
+    private readonly InventoryModel _model;
+
+    public ShedController(IReadOnlyList<UpgradeItemConfig> upgradeItems, List<ItemConfig> items, Car car)
     {
-        if (upgradeItemConfigs == null) throw new
-        ArgumentNullException(nameof(upgradeItemConfigs));
-        _car = car ?? throw new ArgumentNullException(nameof(car));
-        _upgradeHandlersRepository = new UpgradeHandlersRepository(upgradeItemConfigs);
-        AddController(_upgradeHandlersRepository);
-        _upgradeItemsRepository = new ItemsRepository(upgradeItemConfigs.Select(value =>
-        value.itemConfig).ToList());
-        AddController(_upgradeItemsRepository);
-        _inventoryModel = new InventoryModel();
-        _inventoryView = new InventoryView();
-        _inventoryController = new InventoryController(_inventoryModel, _upgradeItemsRepository, _inventoryView);
+        _upgradeItems = upgradeItems;
+        _car = car;
+        _upgradeRepository = new UpgradeHandlersRepository(upgradeItems);
+
+        _model = new InventoryModel();
+        AddController(_upgradeRepository);
+        _inventoryController = new InventoryController(items, _model);
         AddController(_inventoryController);
     }
 
     #region IShedController
     public void Enter()
     {
-        _inventoryController.ShowInventory(Exit);
-        Debug.Log($"Enter: car has speed : {_car.Speed}");
+        _inventoryController.ShowInventory();
+        Debug.Log($"Enter, car speed = {_car.Speed}");
     }
+
     public void Exit()
     {
-        UpgradeCarWithEquippedItems(
-        _car, _inventoryModel.GetEquippedItems(), _upgradeHandlersRepository.UpgradeItems);
-        Debug.Log($"Exit: car has speed : {_car.Speed}");
+        UpgradeCarWithEquipedItems(_car, _model.GetEquippedItems(), _upgradeRepository.UpgradeItems);
+        Debug.Log($"Exit, car speed = {_car.Speed}");
     }
-    private void UpgradeCarWithEquippedItems(
-    IUpgradableCar upgradableCar,
-    IReadOnlyList<IItem> equippedItems,
-    IReadOnlyDictionary<int, IUpgradeCarHandler> upgradeHandlers)
+
+    private void UpgradeCarWithEquipedItems(IUpgradableCar car,
+        IReadOnlyList<IItem> equiped,
+        IReadOnlyDictionary<int, IUpgradeCarHandler> upgradeHandlers)
     {
-        foreach (var equippedItem in equippedItems)
+        foreach (var item in equiped)
         {
-            if (upgradeHandlers.TryGetValue(equippedItem.Id, out var handler))
-            {
-                handler.Upgrade(upgradableCar);
-            }
+            if (upgradeHandlers.TryGetValue(item.Id, out var handler))
+                handler.Upgrade(car);
         }
     }
     #endregion
 }
-#endregion

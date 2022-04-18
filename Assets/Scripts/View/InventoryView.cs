@@ -2,21 +2,14 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryView : MonoBehaviour, IInventoryView
+public class InventoryView : IInventoryView
 {
     public event EventHandler<IItem> Selected;
     public event EventHandler<IItem> Deselected;
-    private List<IItem> _itemInfoCollection;
-    public void Display(List<IItem> itemInfoCollection)
+
+    public void Display(IReadOnlyList<IItem> items)
     {
-        _itemInfoCollection = itemInfoCollection;
-    }
-    protected virtual void OnSelected(IItem e)
-    {
-        Selected?.Invoke(this, e);
-    }
-    protected virtual void OnDeselected(IItem e)
-    {
-        Deselected?.Invoke(this, e);
+        foreach (var item in items)
+            Debug.Log($"Id item: {item.Id}. Title item: {item.Info.Title}");
     }
 }

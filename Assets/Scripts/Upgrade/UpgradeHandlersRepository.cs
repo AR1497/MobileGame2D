@@ -1,43 +1,41 @@
+using System;
 using System.Collections.Generic;
 
 public class UpgradeHandlersRepository : BaseController
 {
-    public IReadOnlyDictionary<int, IUpgradeCarHandler> UpgradeItems => _upgradeItemsMapById;
-    private Dictionary<int, IUpgradeCarHandler> _upgradeItemsMapById = new Dictionary<int,
-    IUpgradeCarHandler>();
-    #region Life cycle
-    public UpgradeHandlersRepository(
-    List<UpgradeItemConfig> upgradeItemConfigs)
+    public IReadOnlyDictionary<int, IUpgradeCarHandler> UpgradeItems => _upgradeItems;
+
+    private Dictionary<int, IUpgradeCarHandler> _upgradeItems = new Dictionary<int, IUpgradeCarHandler>();
+
+    public UpgradeHandlersRepository(IReadOnlyList<UpgradeItemConfig> configs)
     {
-        PopulateItems(ref _upgradeItemsMapById, upgradeItemConfigs);
+        PopulateItems(ref _upgradeItems, configs);
     }
-    protected override void OnDispose()
-    {
-        _upgradeItemsMapById.Clear();
-        _upgradeItemsMapById = null;
-    }
-    #endregion
-    #region Methods
-    private void PopulateItems(
-    ref Dictionary<int, IUpgradeCarHandler> upgradeHandlersMapByType,
-    List<UpgradeItemConfig> configs)
+
+    private void PopulateItems(ref Dictionary<int, IUpgradeCarHandler> upgradeItems, IReadOnlyList<UpgradeItemConfig> configs)
     {
         foreach (var config in configs)
         {
-            if (upgradeHandlersMapByType.ContainsKey(config.Id)) continue;
-            upgradeHandlersMapByType.Add(config.Id, CreateHandlerByType(config));
+            upgradeItems[config.Id] = CreateHandler(config);
         }
     }
-    private IUpgradeCarHandler CreateHandlerByType(UpgradeItemConfig config)
+
+    private IUpgradeCarHandler CreateHandler(UpgradeItemConfig config)
     {
-        switch (config.type)
+        switch (config.UpgradeType)
         {
+            case UpgradeType.None:
+                return UpgradeHandelrStub.Default;
+                break;
             case UpgradeType.Speed:
-                return new SpeedUpgradeCarHandler(config.value);
+                return new SpeedUpgradeCarHandler(config);
+                break;
+            case UpgradeType.Control:
+                return UpgradeHandelrStub.Default;
+                break;
             default:
-                return StubUpgradeCarHandler.Default;
+                throw new ArgumentOutOfRangeException();
         }
     }
-    #endregion
 
 }

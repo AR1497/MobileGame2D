@@ -9,8 +9,3 @@ public class AbilityItemConfig : ScriptableObject
     public float value;
     public int Id => itemConfig.id;
 }
-public enum AbilityType
-{
-    None,
-    Gun,
-}
