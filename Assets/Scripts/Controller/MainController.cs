@@ -34,7 +34,7 @@ public class MainController : BaseController
     {
         AllClear();
 
-        _profilePlayer.CurrentState.UnSubscriptionOnChange(OnChangeGameState);
+        _profilePlayer.CurrentState.UnsubscriptionOnChange(OnChangeGameState);
         base.OnDispose();
     }
 

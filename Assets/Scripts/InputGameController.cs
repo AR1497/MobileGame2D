@@ -15,7 +15,7 @@ public class InputGameController : BaseController
     private BaseInputView LoadView()
     {
         var objView = Object.Instantiate(ResourceLoader.LoadPrefab(_viewPath));
-        AddGameObjects(objView);
+        AddGameObject(objView);
 
         return objView.GetComponent<BaseInputView>();
     }

@@ -15,7 +15,7 @@ public class UpgradeItemConfig : ScriptableObject
     public int Id => _itemConfig.id;
     public UpgradeType UpgradeType => _upgradeType;
 
-    public int ValueUpgrade => _valueUpgrade;
+    public int ValueUpgrade => (int)_valueUpgrade;
 }
 public enum UpgradeType
 {

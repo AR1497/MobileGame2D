@@ -4,7 +4,7 @@ public class SpeedUpgradeCarHandler : IUpgradeCarHandler
     private readonly UpgradeItemConfig _config;
     #endregion
     #region Life cycle
-    public SpeedUpgradeCarHandler(float config)
+    public SpeedUpgradeCarHandler(UpgradeItemConfig config)
     {
         _config = config;
     }

@@ -19,7 +19,7 @@ public class MainMenuController : BaseController
     private MainMenuView LoadView(Transform placeForUi)
     {
         var objectView = Object.Instantiate(ResourceLoader.LoadPrefab(_viewPath), placeForUi, false);
-        AddGameObjects(objectView);
+        AddGameObject(objectView);
 
         return objectView.GetComponent<MainMenuView>();
     }
@@ -28,8 +28,6 @@ public class MainMenuController : BaseController
     {
         _profilePlayer.CurrentState.Value = GameState.Game;
 
-        _profilePlayer.AnalyticTools.SendMessage("start_game",
-            new Dictionary<string, object>() { {"time", Time.realtimeSinceStartup }
-    });
+        _profilePlayer.AnalyticTools.SendMessage("start_game", new Dictionary<string, object>() { {"time", Time.realtimeSinceStartup }});
     }
 }

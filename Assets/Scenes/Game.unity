@@ -700,6 +700,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiRoot: {fileID: 1451287536}
+  _items: []
+  _upgradeSource: {fileID: 11400000, guid: 30bf49f9ff08de847902d833cf4b52a0, type: 2}
+  _abilityItems: []
   _ads: {fileID: 1786267222}
 --- !u!4 &1786267221
 Transform:

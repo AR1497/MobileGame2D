@@ -22,7 +22,7 @@ public class Root : MonoBehaviour
 
     private void Awake()
     {
-        var model = new PlayerData(15f);
+        var model = new PlayerData(15f, _ads, _analyticsTools);
         _analyticsTools = new UnityAnalyticTools();
         model.CurrentState.Value = GameState.Start;
         _mainController = new MainController(_uiRoot, _playerProfile, _items, _upgradeSource.ItemConfigs.ToList(), _abilityItems.AsReadOnly());
