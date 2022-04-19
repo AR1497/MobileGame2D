@@ -1,7 +1,7 @@
-using Model.Analytic;
-using UnityEngine;
 using System.Collections.Generic;
-using Tools.Ads;
+using Profile;
+using UnityEngine;
+using UnityEngine.Advertisements;
 
 public class MainMenuController : BaseController
 {
