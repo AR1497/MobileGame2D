@@ -2,5 +2,6 @@
 {
     None,
     Start,
+    Shed,
     Game
 }

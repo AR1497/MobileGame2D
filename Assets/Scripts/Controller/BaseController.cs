@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -46,5 +47,9 @@ public abstract class BaseController : IDisposible
     protected virtual void OnDispose()
     {
 
+    }
+
+    internal void OnChildDispose()
+    {
     }
 }

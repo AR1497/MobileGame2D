@@ -24,6 +24,7 @@ public class MainController : BaseController
     private ShedController _shedController;
     private GameController _gameController;
     private InventoryController _inventoryController;
+    private Car _car;
     private readonly Transform _placeForUi;
     private readonly PlayerData _profilePlayer;
     private readonly List<ItemConfig> _itemsConfig;
@@ -56,6 +57,10 @@ public class MainController : BaseController
                 _inventoryController.ShowInventory();
                 _gameController = new GameController(_profilePlayer, _abilityItems, inventoryModel);
                 _mainMenuController?.Dispose();
+                break;
+            case GameState.Shed: if (_shedController == null)
+                    _shedController = new ShedController(_upgradeItems, _itemsConfig, _car);
+                else _shedController.Enter();
                 break;
             default:
                 AllClear();

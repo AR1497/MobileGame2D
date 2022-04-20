@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryView : IInventoryView
+public class InventoryView : MonoBehaviour, IInventoryView
 {
     public event EventHandler<IItem> Selected;
     public event EventHandler<IItem> Deselected;
