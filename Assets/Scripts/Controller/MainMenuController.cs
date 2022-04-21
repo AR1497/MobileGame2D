@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Profile;
 using UnityEngine;
-using UnityEngine.Advertisements;
 
 public class MainMenuController : BaseController
 {
@@ -13,7 +12,7 @@ public class MainMenuController : BaseController
     {
         _profilePlayer = profilePlayer;
         _view = LoadView(placeForUi);
-        _view.Init(StartGame);
+        _view.Init(StartGame, GoToTheShed);
     }
 
     private MainMenuView LoadView(Transform placeForUi)
@@ -29,5 +28,10 @@ public class MainMenuController : BaseController
         _profilePlayer.CurrentState.Value = GameState.Game;
 
         _profilePlayer.AnalyticTools.SendMessage("start_game", new Dictionary<string, object>() { {"time", Time.realtimeSinceStartup }});
+    }
+
+    private void GoToTheShed()
+    {
+        _profilePlayer.CurrentState.Value = GameState.Shed;
     }
 }

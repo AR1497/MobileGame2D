@@ -6,5 +6,5 @@ public interface IInventoryView
     event Action<IItem> Selected;
     event Action<IItem> Deselected;
     void Init(List<IItem> items);
-    void Display(IReadOnlyList<IItem> equippedItems);
+    void Display();
 }

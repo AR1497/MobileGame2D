@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Upgrade item", menuName = "Upgrade item", order = 0)]
+[CreateAssetMenu(fileName = "Upgrade item", menuName = "ItemMenu/ConfigItem", order = 1)]
 public class UpgradeItemConfig : ScriptableObject
 {
     [SerializeField]
@@ -17,6 +17,7 @@ public class UpgradeItemConfig : ScriptableObject
 
     public int ValueUpgrade => (int)_valueUpgrade;
 }
+
 public enum UpgradeType
 {
     None,

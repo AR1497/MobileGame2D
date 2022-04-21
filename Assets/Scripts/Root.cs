@@ -7,9 +7,9 @@ using UnityEngine;
 
 public class Root : MonoBehaviour
 {
-    [SerializeField]
-    private Transform _uiRoot;
-    private PlayerData _playerProfile;
+    [SerializeField] private Transform _uiRoot;
+
+    [SerializeField] private UnityAdsTools _ads;
     [SerializeField] private List<ItemConfig> _items;
     [SerializeField] private UpgradeItemConfigDataSource _upgradeSource;
     [SerializeField] private List<AbilityItemConfig> _abilityItems;
@@ -17,8 +17,7 @@ public class Root : MonoBehaviour
     private MainController _mainController;
     private IAnalyticTools _analyticsTools;
 
-    [SerializeField]
-    private UnityAdsTools _ads;
+    private PlayerData _playerProfile;
 
     private void Awake()
     {

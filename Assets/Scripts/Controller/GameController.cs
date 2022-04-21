@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using Tools;
+using UnityEngine;
 
 public class GameController : BaseController
 {
-    public GameController(PlayerData profilePlayer, IReadOnlyList<AbilityItemConfig> configs, InventoryModel inventoryModel)
+    public GameController(PlayerData profilePlayer, IReadOnlyList<AbilityItemConfig> configs, InventoryModel inventoryModel, Transform root)
     {
         var leftMoveDiff = new SubscriptionProperty<float>();
         var rightMoveDiff = new SubscriptionProperty<float>();
