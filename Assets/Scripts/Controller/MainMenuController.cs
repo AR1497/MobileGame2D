@@ -27,7 +27,7 @@ public class MainMenuController : BaseController
     {
         _profilePlayer.CurrentState.Value = GameState.Game;
 
-        _profilePlayer.AnalyticTools.SendMessage("start_game", new Dictionary<string, object>() { {"time", Time.realtimeSinceStartup }});
+        _profilePlayer.AnalyticTools.SendMessage("start_game");
     }
 
     private void GoToTheShed()
