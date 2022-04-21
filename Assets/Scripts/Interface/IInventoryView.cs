@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 public interface IInventoryView
 {
-    event EventHandler<IItem> Selected;
-    event EventHandler<IItem> Deselected;
-    void Display(IReadOnlyList<IItem> items);
+    event Action<IItem> Selected;
+    event Action<IItem> Deselected;
+    void Init(List<IItem> items);
+    void Display(IReadOnlyList<IItem> equippedItems);
 }
