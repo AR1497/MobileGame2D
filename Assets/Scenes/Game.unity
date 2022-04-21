@@ -798,10 +798,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiRoot: {fileID: 1451287536}
-  _items: []
-  _upgradeSource: {fileID: 11400000, guid: 30bf49f9ff08de847902d833cf4b52a0, type: 2}
-  _abilityItems: []
   _ads: {fileID: 1786267222}
+  _items:
+  - {fileID: 11400000, guid: f07df312e13306e418569b7909cd0b69, type: 2}
+  - {fileID: 11400000, guid: a7c0fbd78adbb164ba20901ac672e499, type: 2}
+  _upgradeSource: {fileID: 11400000, guid: 30bf49f9ff08de847902d833cf4b52a0, type: 2}
+  _abilityItems:
+  - {fileID: 11400000, guid: 8fe3e975fb0d8e0449732ac1c46f87b5, type: 2}
 --- !u!4 &1786267221
 Transform:
   m_ObjectHideFlags: 0

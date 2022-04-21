@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 249b6a32cf426ed4ca3326b35df2c38b, type: 3}
   m_Name: SpeedRailing
   m_EditorClassIdentifier: 
-  itemConfig: {fileID: 11400000, guid: f07df312e13306e418569b7909cd0b69, type: 2}
-  type: 1
-  value: 100
+  _itemConfig: {fileID: 11400000, guid: f07df312e13306e418569b7909cd0b69, type: 2}
+  _upgradeType: 1
+  _valueUpgrade: 100
