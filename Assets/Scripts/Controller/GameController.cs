@@ -1,3 +1,4 @@
+using Profile;
 using System.Collections.Generic;
 using Tools;
 using UnityEngine;
@@ -34,13 +35,9 @@ public class GameController : BaseController
         {
             PathResource = "DataSource/Ability/AbilityItemConfigDataSource"
         });
-        var abilityRepository
-        = new AbilityRepository(abilityItemsConfigCollection);
-        var abilityCollectionViewPath
-        = new ResourcePath { PathResource = $"Prefabs/{nameof(AbilityCollectionView)}" };
-        var abilityCollectionView
-        =
-        ResourceLoader.LoadAndInstantiateObject<AbilityCollectionView>(abilityCollectionViewPath,
+        var abilityRepository = new AbilityRepository(abilityItemsConfigCollection);
+        var abilityCollectionViewPath = new ResourcePath { PathResource = $"Prefabs/{nameof(AbilityCollectionView)}" };
+        var abilityCollectionView = ResourceLoader.LoadAndInstantiateObject<AbilityCollectionView>(abilityCollectionViewPath,
         placeForUi, false);
         AddGameObject(abilityCollectionView.gameObject);
 

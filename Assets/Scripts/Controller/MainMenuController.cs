@@ -41,7 +41,9 @@ public class MainMenuController : BaseController
 
     private BaseController ConfigureShedController(
     Transform placeForUi,
-    ProfilePlayer profilePlayer)
+    ProfilePlayer profilePlayer,
+    IUpgradable upgradable,
+    List<UpgradeItemConfig> upgradeItems)
     {
         var upgradeItemsConfigCollection
         = ContentDataSourceLoader.LoadUpgradeItemConfigs(new ResourcePath
@@ -58,7 +60,7 @@ public class MainMenuController : BaseController
         var inventoryController = new InventoryController(itemsRepository, itemsConfig, inventoryModel, inventoryView);
         AddController(inventoryController);
         var shedController = new ShedController(upgradeItemsRepository, inventoryController, upgradable, upgradeItems,
-        profilePlayer.CurrentCar, placeForUi);
+        profilePlayer.CurrentCar, placeForUi, inventoryModel);
         AddController(shedController);
         return shedController;
     }
