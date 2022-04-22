@@ -2,20 +2,23 @@ using System.Collections.Generic;
 
 public class InventoryModel : IInventoryModel
 {
-    private readonly List<IItem> _items = new List<IItem>();
+    private readonly IReadOnlyList<IItem> _stubCollection = new List<IItem>();
+    private readonly List<IItem> _equippedItems = new List<IItem>();
+    
     #region Methods
     public IReadOnlyList<IItem> GetEquippedItems()
     {
-        return _items;
+        return _equippedItems ?? _stubCollection;
     }
     public void EquipItem(IItem item)
     {
-        if (_items.Contains(item)) return;
-        _items.Add(item);
+        if (_equippedItems.Contains(item)) return;
+        _equippedItems.Add(item);
     }
     public void UnequipItem(IItem item)
     {
-        _items.Remove(item);
+        if (!_equippedItems.Contains(item)) return;
+        _equippedItems.Remove(item);
     }
     #endregion
 }

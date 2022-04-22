@@ -5,7 +5,7 @@ using Tools.Ads;
 
 namespace Profile
 {
-    internal class ProfilePlayer
+    public class ProfilePlayer
     {
         public ProfilePlayer(float speedCar, IAdsShower adsShower, IAnalyticTools analyticTools)
         {

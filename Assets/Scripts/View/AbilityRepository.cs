@@ -1,8 +1,9 @@
+using Company.Project.Features;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AbilityRepository : BaseController, IAbilityRepository
+public class AbilityRepository : IRepository<int, IAbility>
 {
     public IReadOnlyDictionary<int, IAbility> AbilitiesMap { get => _abilitiesMap; }
 
@@ -10,13 +11,23 @@ public class AbilityRepository : BaseController, IAbilityRepository
 
     private Dictionary<int, IAbility> _abilitiesMap = new Dictionary<int, IAbility>();
 
-    public AbilityRepository(IReadOnlyList<AbilityItemConfig> abilities)
+    public AbilityRepository(List<AbilityItemConfig> itemConfigs)
     {
-        foreach (var config in abilities)
+
+        PopulateItems(ref _abilitiesMap, itemConfigs);
+    }
+
+    private void PopulateItems(
+    ref Dictionary<int, IAbility> upgradeHandlersMapByType,
+    List<AbilityItemConfig> configs)
+    {
+        foreach (var config in configs)
         {
-            _abilitiesMap[config.Id] = CreateAbility(config);
+            if (upgradeHandlersMapByType.ContainsKey(config.Id)) continue;
+            upgradeHandlersMapByType.Add(config.Id, CreateAbilityByType(config));
         }
     }
+
 
     private IAbility CreateAbility(AbilityItemConfig config)
     {
@@ -30,6 +41,8 @@ public class AbilityRepository : BaseController, IAbilityRepository
                 throw new ArgumentOutOfRangeException();
         }
     }
+
+    public IReadOnlyDictionary<int, IAbility> Collection => _abilitiesMap;
 }
 
 public class AbilityStub : IAbility

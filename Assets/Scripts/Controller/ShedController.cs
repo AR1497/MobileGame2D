@@ -1,3 +1,4 @@
+using Company.Project.Features;
 using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
@@ -5,21 +6,31 @@ using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-public class ShedController : BaseController
+public class ShedController : BaseController, IShedController
 {
+    private readonly IUpgradable _upgradable;
+    private readonly IRepository<int, IUpgradeCarHandler> _upgradeHandlersRepository;
+    private readonly IInventoryController _inventoryController;
+
     private readonly ResourcePath _viewPath = new ResourcePath { PathResource = "Prefabs/Item" };
     private readonly IReadOnlyList<UpgradeItemConfig> _upgradeItems;
     private readonly Car _car;
     private readonly UpgradeHandlersRepository _upgradeRepository;
     private readonly ItemsRepository _upgradeItemsRepository;
-    private readonly InventoryController _inventoryController;
     private readonly InventoryModel _inventoryModel;
     private readonly IInventoryView _inventoryView;
     private IReadOnlyList<UpgradeItemConfig> upgradeItems;
     private List<ItemConfig> itemsConfig;
     private Car currentCar;
 
-    public ShedController([NotNull] List<UpgradeItemConfig> upgradeItems, [NotNull] Car car, [NotNull] Transform placeForUi, InventoryModel inventoryModel)
+    public ShedController(
+        [NotNull] IRepository<int, IUpgradeCarHandler> upgradeHandlersRepository,
+        [NotNull] IInventoryController inventoryController,
+        [NotNull] IUpgradable upgradable,
+        [NotNull] List<UpgradeItemConfig> upgradeItems, 
+        [NotNull] Car car, 
+        [NotNull] Transform placeForUi, 
+        InventoryModel inventoryModel)
     {
         _inventoryView = LoadView(placeForUi);
         if (upgradeItems == null) throw new ArgumentNullException(nameof(upgradeItems));
@@ -29,41 +40,50 @@ public class ShedController : BaseController
         _upgradeItemsRepository = new ItemsRepository(upgradeItems.Select(value => value._itemConfig).ToList());
         AddController(_upgradeItemsRepository);
         _inventoryModel = inventoryModel;
-        _inventoryController = new InventoryController(_inventoryModel, _upgradeItemsRepository, _inventoryView);
-        AddController(_inventoryController);
         Enter();
+
+        _upgradeHandlersRepository = upgradeHandlersRepository ?? throw new
+        ArgumentNullException(nameof(upgradeHandlersRepository));
+        _inventoryController = inventoryController ?? throw new
+        ArgumentNullException(nameof(inventoryController)); ;
+        _upgradable = upgradable ?? throw new ArgumentNullException(nameof(upgradable));
     }
 
-    public ShedController(IReadOnlyList<UpgradeItemConfig> upgradeItems, List<ItemConfig> itemsConfig, Car currentCar, InventoryModel _inventoryModel)
-    {
-        this.upgradeItems = upgradeItems;
-        this.itemsConfig = itemsConfig;
-        this.currentCar = currentCar;
-    }
+    //public ShedController(IReadOnlyList<UpgradeItemConfig> upgradeItems, List<ItemConfig> itemsConfig, Car currentCar, InventoryModel _inventoryModel)
+    //{
+    //    this.upgradeItems = upgradeItems;
+    //    this.itemsConfig = itemsConfig;
+    //    this.currentCar = currentCar;
+    //}
 
     #region IShedController
     public void Enter()
     {
         _inventoryController.ShowInventory(Exit);
-        Debug.Log($"Enter, car speed = {_car.Speed}");
     }
 
     public void Exit()
     {
         var model = _upgradeItemsRepository.Items.Values.ToList();
-        UpgradeCarWithEquipedItems(_car, model, _upgradeRepository.UpgradeItems);
+        UpgradeCarWithEquipedItems(_upgradable, _inventoryController.GetEquippedItems(),
+        _car, model, _upgradeRepository.UpgradeItems);
         Debug.Log($"Exit, car speed = {_car.Speed}");
         _inventoryController.HideInventory();
     }
 
-    private void UpgradeCarWithEquipedItems(IUpgradableCar car,
+    private void UpgradeCarWithEquipedItems(
+        IUpgradable upgradable,
+        IReadOnlyList<IItem> equippedItems,
+        IUpgradableCar car,
         IReadOnlyList<IItem> equiped,
         IReadOnlyDictionary<int, IUpgradeCarHandler> upgradeHandlers)
     {
-        foreach (var item in equiped)
+        foreach (var equippedItem in equippedItems)
         {
-            if (upgradeHandlers.TryGetValue(item.Id, out var handler))
-                handler.Upgrade(car);
+            if (upgradeHandlers.TryGetValue(equippedItem.Id, out var handler))
+            {
+                handler.Upgrade(upgradable);
+            }
         }
     }
     #endregion

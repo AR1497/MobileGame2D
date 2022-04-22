@@ -8,6 +8,14 @@ public class InventoryView : MonoBehaviour, IInventoryView
 {
     public event Action<IItem> Selected;
     public event Action<IItem> Deselected;
+
+    public void Show()
+    {
+    }
+    public void Hide()
+    {
+    }
+
     private List<IItem> _itemInfoCollection;
     private List<GameObject> _itemsObjectsView = new List<GameObject>();
     private readonly ResourcePath _viewPath = new ResourcePath { PathResource = "Prefabs/Item" };
@@ -34,20 +42,20 @@ public class InventoryView : MonoBehaviour, IInventoryView
     {
         if (gameObject.activeSelf) gameObject.SetActive(false);
         else gameObject.SetActive(true);
+    }
 
+    public void Display(List<IItem> itemInfoCollection)
+    {
+        _itemInfoCollection = itemInfoCollection;
     }
 
     protected virtual void OnSelected(IItem e)
     {
-        Debug.Log(e.Info.Title);
+        Selected?.Invoke(this, e);
     }
+
     protected virtual void OnDeselected(IItem e)
     {
-
-    }
-
-    public void Display(IReadOnlyList<IItem> equippedItems)
-    {
-        throw new NotImplementedException();
+        Deselected?.Invoke(this, e);
     }
 }

@@ -13,13 +13,14 @@ public class MainController : BaseController
     private InventoryModel _inventoryModel;
     private Car _car;
     private readonly Transform _placeForUi;
-    private readonly PlayerData _profilePlayer;
+    private readonly ProfilePlayer _profilePlayer;
     private readonly List<ItemConfig> _itemsConfig;
     private readonly IAdsShower _adsShower;
     private readonly IReadOnlyList<UpgradeItemConfig> _upgradeItems;
     private readonly IReadOnlyList<AbilityItemConfig> _abilityItems;
+    private readonly UpgradeHandlersRepository _upgradeHandlersRepository;
 
-    public MainController(Transform placeForUi, PlayerData profilePlayer,
+    public MainController(Transform placeForUi, ProfilePlayer profilePlayer,
          List<ItemConfig> itemsConfig, IReadOnlyList<UpgradeItemConfig> upgradeItems,
          IReadOnlyList<AbilityItemConfig> abilityItems)
     {
@@ -56,7 +57,7 @@ public class MainController : BaseController
                 _mainMenuController?.Dispose();
                 break;
             case GameState.Shed: if (_shedController == null)
-                    _shedController = new ShedController(_upgradeItems, _itemsConfig, _car, _inventoryModel);
+                    _shedController = new ShedController(_upgradeHandlersRepository, _inventoryController, (IUpgradable)_itemsConfig, (List<UpgradeItemConfig>)_upgradeItems, _car, _placeForUi, _inventoryModel);
                 else _shedController.Enter();
                 break;
             default:

@@ -13,7 +13,7 @@ public class CarController : BaseController, IAbilityActivator
 
     private CarView LoadView()
     {
-        var objView = Object.Instantiate(ResourceLoader.LoadPrefab(_viewPath));
+        GameObject objView = Object.Instantiate(ResourceLoader.LoadPrefab(_viewPath));
         AddGameObject(objView);
 
         return objView.GetComponent<CarView>();

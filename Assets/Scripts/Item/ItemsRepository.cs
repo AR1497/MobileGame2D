@@ -4,6 +4,7 @@ public class ItemsRepository : BaseController, IItemsRepository
 {
     public IReadOnlyDictionary<int, IItem> Items => _itemsMapById;
     private Dictionary<int, IItem> _itemsMapById = new Dictionary<int, IItem>();
+
     #region Life cycle
     public ItemsRepository(List<ItemConfig> itemConfigs)
     {

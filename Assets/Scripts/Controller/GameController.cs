@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameController : BaseController
 {
-    public GameController(PlayerData profilePlayer, IReadOnlyList<AbilityItemConfig> configs, InventoryModel inventoryModel, Transform root)
+    public GameController(ProfilePlayer profilePlayer, IReadOnlyList<AbilityItemConfig> configs, InventoryModel inventoryModel, Transform root)
     {
         var leftMoveDiff = new SubscriptionProperty<float>();
         var rightMoveDiff = new SubscriptionProperty<float>();
@@ -18,10 +18,36 @@ public class GameController : BaseController
         var carController = new CarController();
         AddController(carController);
 
-        var abilityRepository = new AbilityRepository(configs);
+        var abilityRepository = new AbilityRepository((List<AbilityItemConfig>)configs);
         var abilitiesController = new AbilitiesController(carController, inventoryModel, abilityRepository,
-            new AbilitiesCollectionViewStub());
+            new AbilitiesCollectionView());
         AddController(abilitiesController);
 
+    }
+
+    private IAbilitiesController ConfigureAbilityController(
+    Transform placeForUi,
+    IAbilityActivator abilityActivator)
+    {
+        var abilityItemsConfigCollection
+        = ContentDataSourceLoader.LoadAbilityItemConfigs(new ResourcePath
+        {
+            PathResource = "DataSource/Ability/AbilityItemConfigDataSource"
+        });
+        var abilityRepository
+        = new AbilityRepository(abilityItemsConfigCollection);
+        var abilityCollectionViewPath
+        = new ResourcePath { PathResource = $"Prefabs/{nameof(AbilityCollectionView)}" };
+        var abilityCollectionView
+        =
+        ResourceLoader.LoadAndInstantiateObject<AbilityCollectionView>(abilityCollectionViewPath,
+        placeForUi, false);
+        AddGameObject(abilityCollectionView.gameObject);
+
+        var inventoryModel = new InventoryModel();
+        var abilitiesController = new AbilitiesController(abilityRepository, inventoryModel,
+        abilityCollectionView, abilityActivator);
+        AddController(abilitiesController);
+        return abilitiesController;
     }
 }

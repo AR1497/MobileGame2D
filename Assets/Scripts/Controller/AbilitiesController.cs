@@ -1,16 +1,17 @@
+using Company.Project.Features;
 using JetBrains.Annotations;
 using System;
 
-public class AbilitiesController : BaseController
+public class AbilitiesController : BaseController, IAbilitiesController
 {
     private readonly IInventoryModel _inventoryModel;
-    private readonly IAbilityRepository _abilityRepository;
+    private readonly IRepository<int, IAbility> _abilityRepository;
     private readonly IAbilityCollectionView _abilityCollectionView;
     private readonly IAbilityActivator _abilityActivator;
     public AbilitiesController(
     [NotNull] IAbilityActivator abilityActivator,
     [NotNull] IInventoryModel inventoryModel,
-    [NotNull] IAbilityRepository abilityRepository,
+    [NotNull] IRepository<int, IAbility> abilityRepository,
     [NotNull] IAbilityCollectionView abilityCollectionView)
     {
         _abilityActivator = abilityActivator ?? throw new
@@ -23,11 +24,35 @@ public class AbilitiesController : BaseController
         ArgumentNullException(nameof(abilityCollectionView));
         _abilityCollectionView.UseRequested += OnAbilityUseRequested;
         _abilityCollectionView.Display(_inventoryModel.GetEquippedItems());
+        SetupView(_abilityCollectionView);
+    }
+
+    protected override void OnDispose()
+    {
+        CleanupView(_abilityCollectionView);
+        base.OnDispose();
+    }
+
+    private void SetupView(IAbilityCollectionView view)
+    {
+        view.UseRequested += OnAbilityUseRequested;
+    }
+    private void CleanupView(IAbilityCollectionView view)
+    {
+        view.UseRequested -= OnAbilityUseRequested;
     }
 
     private void OnAbilityUseRequested(object sender, IItem e)
     {
-        if (_abilityRepository.AbilityMapByItemId.TryGetValue(e.Id, out var ability))
+        if (_abilityRepository.Collection.TryGetValue(e.Id, out var ability))
+        {
             ability.Apply(_abilityActivator);
+        }
+    }
+
+    public void ShowAbilities()
+    {
+        _abilityCollectionView.Show();
+        _abilityCollectionView.Display(_inventoryModel.GetEquippedItems());
     }
 }
