@@ -17,11 +17,11 @@ public class Root : MonoBehaviour
     private MainController _mainController;
     private IAnalyticTools _analyticsTools;
 
-    private PlayerData _playerProfile;
+    private ProfilePlayer _playerProfile;
 
     private void Awake()
     {
-        _playerProfile = new PlayerData(15f, _ads, _analyticsTools);
+        _playerProfile = new ProfilePlayer(15f, _ads, _analyticsTools);
         _analyticsTools = new UnityAnalyticTools();
         _playerProfile.CurrentState.Value = GameState.Start;
         _mainController = new MainController(_uiRoot, _playerProfile, _items, _upgradeSource.ItemConfigs.ToList(), _abilityItems.AsReadOnly());

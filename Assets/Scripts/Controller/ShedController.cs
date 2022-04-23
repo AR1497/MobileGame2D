@@ -49,12 +49,10 @@ public class ShedController : BaseController, IShedController
         _upgradable = upgradable ?? throw new ArgumentNullException(nameof(upgradable));
     }
 
-    //public ShedController(IReadOnlyList<UpgradeItemConfig> upgradeItems, List<ItemConfig> itemsConfig, Car currentCar, InventoryModel _inventoryModel)
-    //{
-    //    this.upgradeItems = upgradeItems;
-    //    this.itemsConfig = itemsConfig;
-    //    this.currentCar = currentCar;
-    //}
+    private void AddController(UpgradeHandlersRepository upgradeRepository)
+    {
+        throw new NotImplementedException();
+    }
 
     #region IShedController
     public void Enter()
@@ -82,7 +80,7 @@ public class ShedController : BaseController, IShedController
         {
             if (upgradeHandlers.TryGetValue(equippedItem.Id, out var handler))
             {
-                handler.Upgrade(upgradable);
+                handler.Upgrade((IUpgradableCar)upgradable);
             }
         }
     }

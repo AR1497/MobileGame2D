@@ -24,7 +24,7 @@ public class AbilityRepository : IRepository<int, IAbility>
         foreach (var config in configs)
         {
             if (upgradeHandlersMapByType.ContainsKey(config.Id)) continue;
-            upgradeHandlersMapByType.Add(config.Id, CreateAbilityByType(config));
+            upgradeHandlersMapByType.Add(config.Id, CreateAbility(config));
         }
     }
 
@@ -36,7 +36,7 @@ public class AbilityRepository : IRepository<int, IAbility>
             case AbilityType.None:
                 return AbilityStub.Default;
             case AbilityType.Gun:
-                return new GunAbility(config.view, config.value);
+                return new GunAbility(config.viewPath, config, config.projectileSpeed);
             default:
                 throw new ArgumentOutOfRangeException();
         }

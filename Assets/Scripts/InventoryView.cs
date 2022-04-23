@@ -51,11 +51,11 @@ public class InventoryView : MonoBehaviour, IInventoryView
 
     protected virtual void OnSelected(IItem e)
     {
-        Selected?.Invoke(this, e);
+        Selected?.Invoke(e);
     }
 
     protected virtual void OnDeselected(IItem e)
     {
-        Deselected?.Invoke(this, e);
+        Deselected?.Invoke(e);
     }
 }

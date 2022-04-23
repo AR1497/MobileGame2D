@@ -11,17 +11,17 @@ public class MainMenuController : BaseController
 
     public MainMenuController(
         Transform placeForUi, 
-        ProfilePlayer profilePlayer)
+        ProfilePlayer profilePlayer,
+        List<UpgradeItemConfig> upgradeItems,
+        IUpgradable upgradable)
     {
         _profilePlayer = profilePlayer; 
         _view = ResourceLoader.LoadAndInstantiateObject<MainMenuView>(new ResourcePath
         { PathResource = "Prefabs/mainMenu" }, placeForUi, false);
-        //_view = LoadView(placeForUi);
         AddGameObject(_view.gameObject);
         _view.Init(StartGame, GoToTheShed);
 
-        //var cursorTrailController = ConfigureCursorTrail();
-        var shedController = ConfigureShedController(placeForUi, profilePlayer);
+        var shedController = ConfigureShedController(placeForUi, profilePlayer, upgradable, upgradeItems);
     }
 
     private MainMenuView LoadView(Transform placeForUi)
@@ -31,13 +31,6 @@ public class MainMenuController : BaseController
 
         return objectView.GetComponent<MainMenuView>();
     }
-
-    //private BaseController ConfigureCursorTrail()
-    //{
-    //    var cursorTrailController = new CursorTrailController();
-    //    AddController(cursorTrailController);
-    //    return cursorTrailController;
-    //}
 
     private BaseController ConfigureShedController(
     Transform placeForUi,

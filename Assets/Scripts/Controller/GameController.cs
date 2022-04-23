@@ -1,4 +1,5 @@
 using Profile;
+using System;
 using System.Collections.Generic;
 using Tools;
 using UnityEngine;
@@ -37,14 +38,18 @@ public class GameController : BaseController
         });
         var abilityRepository = new AbilityRepository(abilityItemsConfigCollection);
         var abilityCollectionViewPath = new ResourcePath { PathResource = $"Prefabs/{nameof(AbilityCollectionView)}" };
-        var abilityCollectionView = ResourceLoader.LoadAndInstantiateObject<AbilityCollectionView>(abilityCollectionViewPath,
+        var abilityCollectionView = ResourceLoader.LoadAndInstantiateObject<AbilitiesCollectionView>(abilityCollectionViewPath,
         placeForUi, false);
         AddGameObject(abilityCollectionView.gameObject);
 
         var inventoryModel = new InventoryModel();
-        var abilitiesController = new AbilitiesController(abilityRepository, inventoryModel,
-        abilityCollectionView, abilityActivator);
+        var abilitiesController = new AbilitiesController(abilityActivator, inventoryModel, abilityRepository, abilityCollectionView);
         AddController(abilitiesController);
         return abilitiesController;
+    }
+
+    private object AbilityCollectionView()
+    {
+        throw new NotImplementedException();
     }
 }

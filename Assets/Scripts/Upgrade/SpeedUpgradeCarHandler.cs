@@ -12,7 +12,7 @@ public class SpeedUpgradeCarHandler : IUpgradeCarHandler
     #region IUpgradeHandler
     public IUpgradableCar Upgrade(IUpgradableCar upgradableCar)
     {
-        upgradableCar.Speed = _config.ValueUpgrade;
+        upgradableCar.Speed += _config.ValueUpgrade;
         return upgradableCar;
     }
     #endregion

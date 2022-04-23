@@ -2,9 +2,9 @@ using Company.Project.Features;
 using System;
 using System.Collections.Generic;
 
-public class UpgradeHandlersRepository : IRepository<int, IUpgradeCarHandler>
+public class UpgradeHandlersRepository : BaseController, IRepository<int, IUpgradeCarHandler>
 {
-    public IReadOnlyDictionary<int, IUpgradeCarHandler> UpgradeItems => _upgradeItems;
+    public IReadOnlyDictionary<int, IUpgradeCarHandler> Content => _upgradeItemsMapById;
 
     private Dictionary<int, IUpgradeCarHandler> _upgradeItemsMapById = new Dictionary<int, IUpgradeCarHandler>();
 
@@ -44,4 +44,6 @@ public class UpgradeHandlersRepository : IRepository<int, IUpgradeCarHandler>
     }
 
     public IReadOnlyDictionary<int, IUpgradeCarHandler> Collection => _upgradeItemsMapById;
+
+    public IReadOnlyDictionary<int, IUpgradeCarHandler> UpgradeItems { get; internal set; }
 }

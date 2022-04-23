@@ -20,11 +20,9 @@ public class AbilitiesCollectionView : MonoBehaviour, IAbilityCollectionView
 
     public void Show()
     {
-        // красиво показать какой-то объект
     }
     public void Hide()
     {
-        // красиво спрятать какой-то объект
     }
 
 }

@@ -12,6 +12,9 @@ public class InventoryController : BaseController, IInventoryController
     private List<ItemConfig> itemsConfig;
     private InventoryModel inventoryModel;
     private Action _hideAction;
+    private ItemsRepository itemsRepository;
+    private ItemConfig itemsConfig1;
+    private InventoryView inventoryView;
 
     public InventoryController([NotNull] IRepository<int, IItem> itemsRepository, List<ItemConfig> itemsConfig, IInventoryModel inventoryModel, IInventoryView inventoryView)
     {
@@ -21,6 +24,14 @@ public class InventoryController : BaseController, IInventoryController
         _inventoryWindowView = inventoryView ?? throw new ArgumentNullException(nameof(inventoryView));
         SetupView(_inventoryWindowView);
     }
+
+    //public InventoryController(ItemsRepository itemsRepository, ItemConfig itemsConfig1, InventoryModel inventoryModel, InventoryView inventoryView)
+    //{
+    //    this.itemsRepository = itemsRepository;
+    //    this.itemsConfig1 = itemsConfig1;
+    //    this.inventoryModel = inventoryModel;
+    //    this.inventoryView = inventoryView;
+    //}
 
     protected override void OnDispose()
     {

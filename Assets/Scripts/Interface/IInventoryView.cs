@@ -6,5 +6,7 @@ public interface IInventoryView
     event Action<IItem> Selected;
     event Action<IItem> Deselected;
     void Init(List<IItem> items);
-    void Display();
+    void Display(List<IItem> items);
+    void Hide();
+    void Show();
 }
