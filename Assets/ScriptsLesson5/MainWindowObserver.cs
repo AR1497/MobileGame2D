@@ -12,6 +12,8 @@ public class MainWindowObserver : MonoBehaviour
     [SerializeField]
     private Text _countPowerEnemyText;
     [SerializeField]
+    private Text _countCrimeLevelText;
+    [SerializeField]
     private Button _addCoinsButton;
     [SerializeField]
     private Button _minusCoinsButton;
@@ -24,14 +26,20 @@ public class MainWindowObserver : MonoBehaviour
     [SerializeField]
     private Button _minusPowerButton;
     [SerializeField]
+    private Button _addCrimeLevelButton;
+    [SerializeField]
+    private Button _minusCrimeLevelButton;
+    [SerializeField]
     private Button _fightButton;
     private int _allCountMoneyPlayer;
     private int _allCountHealthPlayer;
     private int _allCountPowerPlayer;
+    private int _allCountCrimeLevel;
     private Money _money;
     private Health _heath;
     private Power _power;
     private Enemy _enemy;
+    private CrimeLevel _crime;
     private void Start()
     {
         _enemy = new Enemy("Enemy Flappy");
@@ -41,12 +49,15 @@ public class MainWindowObserver : MonoBehaviour
         _heath.Attach(_enemy);
         _power = new Power(nameof(Power));
         _power.Attach(_enemy);
+        _crime = new CrimeLevel(nameof(CrimeLevel));
         _addCoinsButton.onClick.AddListener(() => ChangeMoney(true));
         _minusCoinsButton.onClick.AddListener(() => ChangeMoney(false));
         _addHealthButton.onClick.AddListener(() => ChangeHealth(true));
         _minusHealthButton.onClick.AddListener(() => ChangeHealth(false));
         _addPowerButton.onClick.AddListener(() => ChangePower(true));
         _minusPowerButton.onClick.AddListener(() => ChangePower(false));
+        _addCrimeLevelButton.onClick.AddListener(() => ChangePower(true));
+        _minusCrimeLevelButton.onClick.AddListener(() => ChangePower(false));
         _fightButton.onClick.AddListener(Fight);
     }
     private void OnDestroy()
@@ -57,6 +68,8 @@ public class MainWindowObserver : MonoBehaviour
         _minusHealthButton.onClick.RemoveAllListeners();
         _addPowerButton.onClick.RemoveAllListeners();
         _minusPowerButton.onClick.RemoveAllListeners();
+        _addCrimeLevelButton.onClick.RemoveAllListeners();
+        _minusCrimeLevelButton.onClick.RemoveAllListeners();
         _fightButton.onClick.RemoveAllListeners();
         _money.Detach(_enemy);
         _heath.Detach(_enemy);
@@ -86,6 +99,14 @@ public class MainWindowObserver : MonoBehaviour
             _allCountPowerPlayer--;
         ChangeDataWindow(_allCountPowerPlayer, DataType.Power);
     }
+    private void ChangeCrimeLevel(bool isAddCount)
+    {
+        if (isAddCount)
+            _allCountCrimeLevel++;
+        else
+            _allCountCrimeLevel--;
+        ChangeDataWindow(_allCountCrimeLevel, DataType.Crime);
+    }
     private void Fight()
     {
         Debug.Log(_allCountPowerPlayer >= _enemy.Power
@@ -107,6 +128,10 @@ public class MainWindowObserver : MonoBehaviour
             case DataType.Power:
                 _countPowerText.text = $"Player Power {countChangeData.ToString()}";
                 _power.Power = countChangeData;
+                break;
+            case DataType.Crime:
+                _countCrimeLevelText.text = $"Level Crime {countChangeData.ToString()}";
+                _crime.Crime = countChangeData;
                 break;
         }
         _countPowerEnemyText.text = $"Enemy Power {_enemy.Power}";
