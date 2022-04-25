@@ -31,6 +31,8 @@ public class MainWindowObserver : MonoBehaviour
     private Button _minusCrimeLevelButton;
     [SerializeField]
     private Button _fightButton;
+    [SerializeField]
+    private Button _passButton;
     private int _allCountMoneyPlayer;
     private int _allCountHealthPlayer;
     private int _allCountPowerPlayer;
@@ -56,9 +58,10 @@ public class MainWindowObserver : MonoBehaviour
         _minusHealthButton.onClick.AddListener(() => ChangeHealth(false));
         _addPowerButton.onClick.AddListener(() => ChangePower(true));
         _minusPowerButton.onClick.AddListener(() => ChangePower(false));
-        _addCrimeLevelButton.onClick.AddListener(() => ChangePower(true));
-        _minusCrimeLevelButton.onClick.AddListener(() => ChangePower(false));
+        _addCrimeLevelButton.onClick.AddListener(() => ChangeCrimeLevel(true));
+        _minusCrimeLevelButton.onClick.AddListener(() => ChangeCrimeLevel(false));
         _fightButton.onClick.AddListener(Fight);
+        _passButton.onClick.AddListener(Pass);
     }
     private void OnDestroy()
     {
@@ -71,6 +74,7 @@ public class MainWindowObserver : MonoBehaviour
         _addCrimeLevelButton.onClick.RemoveAllListeners();
         _minusCrimeLevelButton.onClick.RemoveAllListeners();
         _fightButton.onClick.RemoveAllListeners();
+        _passButton.onClick.RemoveAllListeners();
         _money.Detach(_enemy);
         _heath.Detach(_enemy);
         _power.Detach(_enemy);
@@ -112,6 +116,15 @@ public class MainWindowObserver : MonoBehaviour
         Debug.Log(_allCountPowerPlayer >= _enemy.Power
         ? "<color=#07FF00>Win!!!</color>"
         : "<color=#FF0000>Lose!!!</color>");
+    }
+    private void Pass()
+    {
+        if (_allCountPowerPlayer <= 2)
+            _passButton.gameObject.SetActive(true);
+        else _passButton.gameObject.SetActive(false);
+        Debug.Log(_allCountCrimeLevel <= 2
+        ? "<color=#07FF00>Pss!!!</color>"
+        : "<color=#FF0000>NoPass!!!</color>");
     }
     private void ChangeDataWindow(int countChangeData, DataType dataType)
     {
