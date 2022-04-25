@@ -13,6 +13,6 @@ public static class ContentDataSourceLoader
     public static List<AbilityItemConfig> LoadAbilityItemConfigs(ResourcePath resourcePath)
     {
         var config = ResourceLoader.LoadObject<AbilityItemConfigDataSource>(resourcePath);
-        return config == null ? new List<AbilityItemConfig>() : config.itemConfigs.ToList();
+        return config == null ? new List<AbilityItemConfig>() : config._itemConfigs.ToList();
     }
 }

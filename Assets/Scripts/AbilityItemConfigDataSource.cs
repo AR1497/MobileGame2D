@@ -1,4 +1,10 @@
-﻿internal class AbilityItemConfigDataSource
+﻿using UnityEngine;
+
+[CreateAssetMenu(fileName = "UpgradeItemConfigDataSource", menuName = "UpgradeItemConfigDataSource", order = 0)]
+internal class AbilityItemConfigDataSource : ScriptableObject
 {
-    internal object itemConfigs;
+    [SerializeField]
+    public AbilityItemConfig[] _itemConfigs;
+
+    public AbilityItemConfig[] ItemConfigs => _itemConfigs;
 }

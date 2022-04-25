@@ -25,14 +25,6 @@ public class InventoryController : BaseController, IInventoryController
         SetupView(_inventoryWindowView);
     }
 
-    //public InventoryController(ItemsRepository itemsRepository, ItemConfig itemsConfig1, InventoryModel inventoryModel, InventoryView inventoryView)
-    //{
-    //    this.itemsRepository = itemsRepository;
-    //    this.itemsConfig1 = itemsConfig1;
-    //    this.inventoryModel = inventoryModel;
-    //    this.inventoryView = inventoryView;
-    //}
-
     protected override void OnDispose()
     {
         CleanupView();
@@ -67,11 +59,11 @@ public class InventoryController : BaseController, IInventoryController
         _inventoryWindowView.Selected -= OnItemSelected;
         _inventoryWindowView.Deselected -= OnItemDeselected;
     }
-    private void OnItemSelected(object sender, IItem item)
+    private void OnItemSelected(IItem item)
     {
         _inventoryModel.EquipItem(item);
     }
-    private void OnItemDeselected(object sender, IItem item)
+    private void OnItemDeselected(IItem item)
     {
         _inventoryModel.UnequipItem(item);
     }

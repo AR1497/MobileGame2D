@@ -8,14 +8,17 @@ public class MainMenuController : BaseController
     private readonly ResourcePath _viewPath = new ResourcePath { PathResource = "Prefabs/mainMenu" };
     private readonly ProfilePlayer _profilePlayer;
     private readonly MainMenuView _view;
+    private List<ItemConfig> _itemConfigs;
 
     public MainMenuController(
         Transform placeForUi, 
         ProfilePlayer profilePlayer,
-        List<UpgradeItemConfig> upgradeItems,
-        IUpgradable upgradable)
+        IReadOnlyList<UpgradeItemConfig> upgradeItems,
+        IUpgradable upgradable,
+        List<ItemConfig> itemConfigs)
     {
         _profilePlayer = profilePlayer; 
+        _itemConfigs = itemConfigs;
         _view = ResourceLoader.LoadAndInstantiateObject<MainMenuView>(new ResourcePath
         { PathResource = "Prefabs/mainMenu" }, placeForUi, false);
         AddGameObject(_view.gameObject);
@@ -36,7 +39,7 @@ public class MainMenuController : BaseController
     Transform placeForUi,
     ProfilePlayer profilePlayer,
     IUpgradable upgradable,
-    List<UpgradeItemConfig> upgradeItems)
+    IReadOnlyList<UpgradeItemConfig> upgradeItems)
     {
         var upgradeItemsConfigCollection
         = ContentDataSourceLoader.LoadUpgradeItemConfigs(new ResourcePath

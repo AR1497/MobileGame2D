@@ -1,4 +1,4 @@
-﻿public class Car : IUpgradableCar
+﻿public class Car : IUpgradable
 {
     #region Fields
     private readonly float _defaultSpeed;

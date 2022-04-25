@@ -27,7 +27,7 @@ public class ShedController : BaseController, IShedController
         [NotNull] IRepository<int, IUpgradeCarHandler> upgradeHandlersRepository,
         [NotNull] IInventoryController inventoryController,
         [NotNull] IUpgradable upgradable,
-        [NotNull] List<UpgradeItemConfig> upgradeItems, 
+        [NotNull] IReadOnlyList<UpgradeItemConfig> upgradeItems, 
         [NotNull] Car car, 
         [NotNull] Transform placeForUi, 
         InventoryModel inventoryModel)
@@ -72,7 +72,7 @@ public class ShedController : BaseController, IShedController
     private void UpgradeCarWithEquipedItems(
         IUpgradable upgradable,
         IReadOnlyList<IItem> equippedItems,
-        IUpgradableCar car,
+        IUpgradable car,
         IReadOnlyList<IItem> equiped,
         IReadOnlyDictionary<int, IUpgradeCarHandler> upgradeHandlers)
     {
