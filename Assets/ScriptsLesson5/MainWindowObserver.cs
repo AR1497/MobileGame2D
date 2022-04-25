@@ -106,15 +106,21 @@ public class MainWindowObserver : MonoBehaviour
     private void ChangeCrimeLevel(bool isAddCount)
     {
         if (isAddCount) { 
-            _allCountCrimeLevel++;
+            if (_allCountCrimeLevel < 5)
+                _allCountCrimeLevel++;
             if (_allCountCrimeLevel <= 2)
                 _passButton.gameObject.SetActive(true);
-            else _passButton.gameObject.SetActive(false); }
-        else { 
-            _allCountCrimeLevel--;
-            if (_allCountCrimeLevel <= 2)
-                _passButton.gameObject.SetActive(true);
-            else _passButton.gameObject.SetActive(false);
+            else _passButton.gameObject.SetActive(false); 
+        }
+        else {
+            if (_allCountCrimeLevel > 0)
+            {
+                _allCountCrimeLevel--;
+                _passButton.gameObject.SetActive(false);
+                if (_allCountCrimeLevel <= 2)
+                    _passButton.gameObject.SetActive(true);
+                else _passButton.gameObject.SetActive(false);
+            }
         }
         ChangeDataWindow(_allCountCrimeLevel, DataType.Crime);
     }
