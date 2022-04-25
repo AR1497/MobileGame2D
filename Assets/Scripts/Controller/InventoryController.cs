@@ -13,16 +13,25 @@ public class InventoryController : BaseController, IInventoryController
     private InventoryModel inventoryModel;
     private Action _hideAction;
     private ItemsRepository itemsRepository;
-    private ItemConfig itemsConfig1;
+    private ItemConfig _itemsConfig;
     private InventoryView inventoryView;
+    private ItemConfig itemsConfig1;
 
     public InventoryController([NotNull] IRepository<int, IItem> itemsRepository, List<ItemConfig> itemsConfig, IInventoryModel inventoryModel, IInventoryView inventoryView)
     {
-        this.itemsConfig = itemsConfig;
+        _itemsConfig = itemsConfig;
         _itemsRepository = itemsRepository ?? throw new ArgumentNullException(nameof(itemsRepository));
         _inventoryModel = inventoryModel ?? throw new ArgumentNullException(nameof(inventoryModel));
         _inventoryWindowView = inventoryView ?? throw new ArgumentNullException(nameof(inventoryView));
         SetupView(_inventoryWindowView);
+    }
+
+    public InventoryController(ItemsRepository itemsRepository, ItemConfig itemsConfig1, InventoryModel inventoryModel, InventoryView inventoryView)
+    {
+        this.itemsRepository = itemsRepository;
+        this.itemsConfig1 = itemsConfig1;
+        this.inventoryModel = inventoryModel;
+        this.inventoryView = inventoryView;
     }
 
     protected override void OnDispose()

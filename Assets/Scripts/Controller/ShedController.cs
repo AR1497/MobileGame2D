@@ -40,18 +40,14 @@ public class ShedController : BaseController, IShedController
         _upgradeItemsRepository = new ItemsRepository(upgradeItems.Select(value => value._itemConfig).ToList());
         AddController(_upgradeItemsRepository);
         _inventoryModel = inventoryModel;
-        Enter();
 
         _upgradeHandlersRepository = upgradeHandlersRepository ?? throw new
         ArgumentNullException(nameof(upgradeHandlersRepository));
         _inventoryController = inventoryController ?? throw new
         ArgumentNullException(nameof(inventoryController)); ;
         _upgradable = upgradable ?? throw new ArgumentNullException(nameof(upgradable));
-    }
+        Enter();
 
-    private void AddController(UpgradeHandlersRepository upgradeRepository)
-    {
-        throw new NotImplementedException();
     }
 
     #region IShedController
@@ -62,7 +58,7 @@ public class ShedController : BaseController, IShedController
 
     public void Exit()
     {
-        var model = _upgradeItemsRepository.Items.Values.ToList();
+        var model = _upgradeItemsRepository._itemsMapById.Values.ToList();
         UpgradeCarWithEquipedItems(_upgradable, _inventoryController.GetEquippedItems(),
         _car, model, _upgradeRepository.UpgradeItems);
         Debug.Log($"Exit, car speed = {_car.Speed}");

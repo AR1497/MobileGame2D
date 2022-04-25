@@ -9,9 +9,9 @@ public static class ResourceLoader
         return Resources.Load<GameObject>(path.PathResource);
     }
 
-    internal static T LoadObject<T>(ResourcePath resourcePath)
+    internal static T LoadObject<T>(ResourcePath resourcePath) where T : Object
     {
-        throw new NotImplementedException();
+        return Resources.Load<T>(resourcePath.PathResource);
     }
 
     public static T InstantiateObject<T>(T prefab, Transform parent, bool worldPositionStays) where
