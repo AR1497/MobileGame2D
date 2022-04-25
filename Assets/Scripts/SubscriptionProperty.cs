@@ -1,27 +1,30 @@
 using System;
 
-public class SubscriptionProperty<T> : IReadOnlySubscriptionProperty<T>
+namespace Tools
 {
-    private T _value;
-    private Action<T> _onChangeValue;
-
-    public T Value
+    public class SubscriptionProperty<T> : IReadOnlySubscriptionProperty<T>
     {
-        get => _value;
-        set
+        private T _value;
+        private Action<T> _onChangeValue;
+
+        public T Value
         {
-            _value = value;
-            _onChangeValue?.Invoke(_value);
+            get => _value;
+            set
+            {
+                _value = value;
+                _onChangeValue?.Invoke(_value);
+            }
         }
-    }
 
-    public void SubscribeOnChange(Action<T> subscriptionAction)
-    {
-        _onChangeValue += subscriptionAction;
-    }
+        public void SubscribeOnChange(Action<T> subscriptionAction)
+        {
+            _onChangeValue += subscriptionAction;
+        }
 
-    public void UnsubscriptionOnChange(Action<T> unsubscriptionAction)
-    {
-        _onChangeValue -= unsubscriptionAction;
+        public void UnsubscriptionOnChange(Action<T> unsubscriptionAction)
+        {
+            _onChangeValue -= unsubscriptionAction;
+        }
     }
 }
