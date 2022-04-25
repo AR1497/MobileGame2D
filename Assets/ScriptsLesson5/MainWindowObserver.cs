@@ -105,10 +105,17 @@ public class MainWindowObserver : MonoBehaviour
     }
     private void ChangeCrimeLevel(bool isAddCount)
     {
-        if (isAddCount)
+        if (isAddCount) { 
             _allCountCrimeLevel++;
-        else
+            if (_allCountCrimeLevel <= 2)
+                _passButton.gameObject.SetActive(true);
+            else _passButton.gameObject.SetActive(false); }
+        else { 
             _allCountCrimeLevel--;
+            if (_allCountCrimeLevel <= 2)
+                _passButton.gameObject.SetActive(true);
+            else _passButton.gameObject.SetActive(false);
+        }
         ChangeDataWindow(_allCountCrimeLevel, DataType.Crime);
     }
     private void Fight()
@@ -119,9 +126,6 @@ public class MainWindowObserver : MonoBehaviour
     }
     private void Pass()
     {
-        if (_allCountPowerPlayer <= 2)
-            _passButton.gameObject.SetActive(true);
-        else _passButton.gameObject.SetActive(false);
         Debug.Log(_allCountCrimeLevel <= 2
         ? "<color=#07FF00>Pss!!!</color>"
         : "<color=#FF0000>NoPass!!!</color>");
