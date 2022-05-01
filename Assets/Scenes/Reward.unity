@@ -304,7 +304,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -1298,7 +1298,8 @@ MonoBehaviour:
     CountCurrency: 1000
   _timerNewReward: {fileID: 776514997}
   _mountRootSlotsReward: {fileID: 952559658}
-  _containerSlotRewardView: {fileID: 0}
+  _containerSlotRewardView: {fileID: 9203531283419378938, guid: 549a0125de3f6c4489a7a7471fe81c03,
+    type: 3}
   _getRewardButton: {fileID: 602758977}
   _resetButton: {fileID: 807288908}
 --- !u!1 &775994335
@@ -1890,9 +1891,9 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 100, y: 100}
-  m_Spacing: {x: 0, y: 0}
-  m_Constraint: 0
-  m_ConstraintCount: 2
+  m_Spacing: {x: 5, y: 0}
+  m_Constraint: 1
+  m_ConstraintCount: 8
 --- !u!1 &1090195537
 GameObject:
   m_ObjectHideFlags: 0
