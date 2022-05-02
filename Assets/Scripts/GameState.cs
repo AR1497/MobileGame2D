@@ -2,6 +2,8 @@
 {
     None,
     Start,
+    DailyReward,
+    Fight,
     Shed,
     Game
 }

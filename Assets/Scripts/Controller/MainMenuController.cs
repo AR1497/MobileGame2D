@@ -12,7 +12,7 @@ public class MainMenuController : BaseController
     {
         _profilePlayer = profilePlayer;
         _view = LoadView(placeForUi);
-        _view.Init(StartGame, GoToTheShed);
+        _view.Init(StartGame, GoToTheShed, DailyRewardGame);
     }
 
     private MainMenuView LoadView(Transform placeForUi)
@@ -33,5 +33,9 @@ public class MainMenuController : BaseController
     private void GoToTheShed()
     {
         _profilePlayer.CurrentState.Value = GameState.Shed;
+    }
+    private void DailyRewardGame()
+    {
+        _profilePlayer.CurrentState.Value = GameState.DailyReward;
     }
 }

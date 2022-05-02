@@ -4,18 +4,25 @@ using UnityEngine.UI;
 
 public class MainMenuView : MonoBehaviour
 {
-    [SerializeField]
-    private Button _startButton;
+    [SerializeField] private Button _buttonStart;
+    [SerializeField] private Button _buttonWatchDailyReward;
+    [SerializeField] private Button _buttonExitGame;
     [SerializeField] private Button _buttonInventory;
 
-    private void OnDestroy()
+    public void Init(UnityAction startGame, UnityAction shed, UnityAction watchDailyReward)
     {
-        _startButton.onClick.RemoveAllListeners();
+        _buttonStart.onClick.AddListener(startGame);
+        _buttonWatchDailyReward.onClick.AddListener(watchDailyReward);
+        _buttonExitGame.onClick.AddListener(ExitGame);
     }
-
-    internal void Init(UnityAction start, UnityAction showInventoryAction)
+    protected void OnDestroy()
     {
-        _startButton.onClick.AddListener(start);
-        _buttonInventory.onClick.AddListener(showInventoryAction);
+        _buttonStart.onClick.RemoveAllListeners();
+        _buttonWatchDailyReward.onClick.RemoveAllListeners();
+        _buttonExitGame.onClick.RemoveAllListeners();
+    }
+    private void ExitGame()
+    {
+        Application.Quit();
     }
 }

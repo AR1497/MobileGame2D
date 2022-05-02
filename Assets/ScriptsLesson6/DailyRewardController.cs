@@ -1,15 +1,19 @@
+using Assets.Scripts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class DailyRewardController
+public class DailyRewardController : BaseController
 {
     private DailyRewardView _dailyRewardView;
     private List<ContainerSlotRewardView> _slots;
+    private CurrencyController _currencyController;
     private bool _isGetReward;
-    public DailyRewardController(DailyRewardView generateLevelView)
+    public DailyRewardController(Transform placeForUi, DailyRewardView dailyRewardView,
+    CurrencyView currencyView)
     {
-        _dailyRewardView = generateLevelView;
+        _dailyRewardView = GameObject.Instantiate(dailyRewardView, placeForUi);
+        _currencyController = new CurrencyController(placeForUi, currencyView);
     }
     public void RefreshView()
     {
@@ -23,7 +27,9 @@ public class DailyRewardController
         _slots = new List<ContainerSlotRewardView>();
         for (var i = 0; i < _dailyRewardView.Rewards.Count; i++)
         {
-            var instanceSlot = GameObject.Instantiate(_dailyRewardView.ContainerSlotRewardView, _dailyRewardView.MountRootSlotsReward, false);
+            var instanceSlot =
+            GameObject.Instantiate(_dailyRewardView.ContainerSlotRewardView,
+            _dailyRewardView.MountRootSlotsReward, false);
             _slots.Add(instanceSlot);
         }
     }
@@ -79,6 +85,7 @@ public class DailyRewardController
     {
         _dailyRewardView.GetRewardButton.onClick.AddListener(ClaimReward);
         _dailyRewardView.ResetButton.onClick.AddListener(ResetTimer);
+        _dailyRewardView.CloseWindow.onClick.AddListener(CloseWindow);
     }
     private void ClaimReward()
     {
@@ -95,12 +102,26 @@ public class DailyRewardController
                 break;
         }
         _dailyRewardView.TimeGetReward = DateTime.UtcNow;
-        _dailyRewardView.CurrentSlotInActive = (_dailyRewardView.CurrentSlotInActive + 1) %
-        _dailyRewardView.Rewards.Count;
+        _dailyRewardView.CurrentSlotInActive = (_dailyRewardView.CurrentSlotInActive +
+        1) % _dailyRewardView.Rewards.Count;
         RefreshRewardsState();
     }
     private void ResetTimer()
     {
         PlayerPrefs.DeleteAll();
+        CurrencyView.Instance.AddWood(0);
+        CurrencyView.Instance.AddDiamonds(0);
+    }
+    private void CloseWindow()
+    {
+        GameObject.Destroy(_dailyRewardView.gameObject);
+        _currencyController.CloseWindow();
+    }
+    protected override void OnDispose()
+    {
+        _dailyRewardView.GetRewardButton.onClick.RemoveAllListeners();
+        _dailyRewardView.ResetButton.onClick.RemoveAllListeners();
+        _dailyRewardView.CloseWindow.onClick.RemoveAllListeners();
+        base.OnDispose();
     }
 }
