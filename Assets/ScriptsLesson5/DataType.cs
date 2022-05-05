@@ -3,5 +3,6 @@
     Money,
     Health,
     Power,
-    Crime
+    Crime,
+    Force
 }
