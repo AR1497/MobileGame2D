@@ -1,4 +1,4 @@
 ﻿public class ResourcePath
 {
-    public string PathResource { get; internal set; }
+    public string PathResource;
 }
