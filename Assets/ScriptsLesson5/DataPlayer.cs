@@ -49,7 +49,7 @@ abstract class DataPlayer
             }
         }
     }
-    public int Power
+    public int Force
     {
         get => _countPower;
         set
@@ -88,9 +88,9 @@ class Health : DataPlayer
     {
     }
 }
-class Power : DataPlayer
+class Force : DataPlayer
 {
-    public Power(string titleData)
+    public Force(string titleData)
     : base(titleData)
     {
     }

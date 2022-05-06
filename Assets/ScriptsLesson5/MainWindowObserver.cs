@@ -39,7 +39,7 @@ public class MainWindowObserver : MonoBehaviour
     private int _allCountCrimeLevel;
     private Money _money;
     private Health _heath;
-    private Power _power;
+    private Force _power;
     private Enemy _enemy;
     private CrimeLevel _crime;
     private void Start()
@@ -49,7 +49,7 @@ public class MainWindowObserver : MonoBehaviour
         _money.Attach(_enemy);
         _heath = new Health(nameof(Health));
         _heath.Attach(_enemy);
-        _power = new Power(nameof(Power));
+        _power = new Force(nameof(Force));
         _power.Attach(_enemy);
         _crime = new CrimeLevel(nameof(CrimeLevel));
         _addCoinsButton.onClick.AddListener(() => ChangeMoney(true));
@@ -126,7 +126,7 @@ public class MainWindowObserver : MonoBehaviour
     }
     private void Fight()
     {
-        Debug.Log(_allCountPowerPlayer >= _enemy.Power
+        Debug.Log(_allCountPowerPlayer >= _enemy.Force
         ? "<color=#07FF00>Win!!!</color>"
         : "<color=#FF0000>Lose!!!</color>");
     }
@@ -148,15 +148,15 @@ public class MainWindowObserver : MonoBehaviour
                 _countHealthText.text = $"Player Health {countChangeData.ToString()}";
                 _heath.Health = countChangeData;
                 break;
-            case DataType.Power:
-                _countPowerText.text = $"Player Power {countChangeData.ToString()}";
-                _power.Power = countChangeData;
-                break;
             case DataType.Crime:
                 _countCrimeLevelText.text = $"Level Crime {countChangeData.ToString()}";
                 _crime.Crime = countChangeData;
                 break;
+            case DataType.Force:
+                _countPowerText.text = $"Player Power {countChangeData.ToString()}";
+                _power.Force = countChangeData;
+                break;
         }
-        _countPowerEnemyText.text = $"Enemy Power {_enemy.Power}";
+        _countPowerEnemyText.text = $"Enemy Power {_enemy.Force}";
     }
 }

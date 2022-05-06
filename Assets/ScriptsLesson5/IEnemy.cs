@@ -13,6 +13,8 @@ class Enemy : IEnemy
     private int _healthPlayer;
     private int _powerPlayer;
     private int _crimeLevel;
+    private int _forcePlayer;
+
     public Enemy(string name)
     {
         _name = name;
@@ -27,22 +29,24 @@ class Enemy : IEnemy
             case DataType.Health:
                 _healthPlayer = dataPlayer.Health;
                 break;
-            case DataType.Power:
-                _powerPlayer = dataPlayer.Power;
-                break;
             case DataType.Crime:
                 _crimeLevel = dataPlayer.Crime;
+                break;
+            case DataType.Force:
+                _forcePlayer = dataPlayer.Force;
                 break;
         }
         Debug.Log($"Notified {_name} change to {dataPlayer}");
     }
-    public int Power
+    public int Force
     {
         get
         {
-            var kHealth = _healthPlayer > MaxHealthPlayer ? 10 : 2;
-            var power = (int)(_moneyPlayer / KCoins + kHealth + _powerPlayer / KPower + _crimeLevel);
-            return power;
+            var kHealth = _healthPlayer > MaxHealthPlayer ? 100 : 5;
+            var force = (int)(_moneyPlayer / KCoins + kHealth + _forcePlayer / KForce);
+            return force;
         }
     }
+
+    public int KForce { get; private set; }
 }

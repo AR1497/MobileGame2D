@@ -805,6 +805,11 @@ MonoBehaviour:
   _upgradeSource: {fileID: 11400000, guid: 30bf49f9ff08de847902d833cf4b52a0, type: 2}
   _abilityItems:
   - {fileID: 11400000, guid: 8fe3e975fb0d8e0449732ac1c46f87b5, type: 2}
+  _placeForUi: {fileID: 0}
+  _dailyRewardView: {fileID: 0}
+  _currencyView: {fileID: 0}
+  _fightWindowView: {fileID: 0}
+  _startFightView: {fileID: 0}
 --- !u!4 &1786267221
 Transform:
   m_ObjectHideFlags: 0

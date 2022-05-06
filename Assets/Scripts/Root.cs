@@ -13,20 +13,30 @@ public class Root : MonoBehaviour
     [SerializeField] private List<ItemConfig> _items;
     [SerializeField] private UpgradeItemConfigDataSource _upgradeSource;
     [SerializeField] private List<AbilityItemConfig> _abilityItems;
+    [SerializeField]
+    private Transform _placeForUi;
+    [SerializeField]
+    private DailyRewardView _dailyRewardView;
+    [SerializeField]
+    private CurrencyView _currencyView;
+    [SerializeField]
+    private FightWindowView _fightWindowView;
+    [SerializeField]
+    private StartFightView _startFightView;
 
     private MainController _mainController;
     private IAnalyticTools _analyticsTools;
 
-    private PlayerData _playerProfile;
+    private ProfilePlayer _playerProfile;
+    private PlayerData _playerData;
 
     private void Awake()
     {
-        _playerProfile = new PlayerData(15f, _ads, _analyticsTools);
         _analyticsTools = new UnityAnalyticTools();
-        _playerProfile.CurrentState.Value = GameState.Start;
-        _mainController = new MainController(_uiRoot, _playerProfile, _items, _upgradeSource.ItemConfigs.ToList(), _abilityItems.AsReadOnly());
+        ProfilePlayer profilePlayer = new ProfilePlayer(15f, new UnityAdsTools(), new UnityAnalyticTools());
+        profilePlayer.CurrentState.Value = GameState.Start;
+        _mainController = new MainController(_placeForUi, _playerProfile, _items, _upgradeSource.ItemConfigs.ToList(), _abilityItems, _dailyRewardView, _currencyView, _fightWindowView, _startFightView);
     }
-
 
     private void OnDestroy()
     {

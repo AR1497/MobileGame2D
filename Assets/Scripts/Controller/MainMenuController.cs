@@ -5,10 +5,10 @@ using UnityEngine;
 public class MainMenuController : BaseController
 {
     private readonly ResourcePath _viewPath = new ResourcePath { PathResource = "Prefabs/mainMenu" };
-    private readonly PlayerData _profilePlayer;
+    private readonly ProfilePlayer _profilePlayer;
     private readonly MainMenuView _view;
 
-    public MainMenuController(Transform placeForUi, PlayerData profilePlayer)
+    public MainMenuController(Transform placeForUi, ProfilePlayer profilePlayer)
     {
         _profilePlayer = profilePlayer;
         _view = LoadView(placeForUi);
