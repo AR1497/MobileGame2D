@@ -9,7 +9,11 @@ public class ItemConfig : ScriptableObject
     [SerializeField]
     public string _title;
 
+    [SerializeField]
+    public Sprite _image;
+
     public int Id => id;
 
     public string Title => _title;
+    public Sprite Image => _image;
 }

@@ -30,7 +30,7 @@ public class MainController : BaseController
     private readonly StartFightView _startFightView;
 
     public MainController(Transform placeForUi, ProfilePlayer profilePlayer,
-         List<ItemConfig> itemsConfig, IReadOnlyList<UpgradeItemConfig> upgradeItems,
+         List<ItemConfig> itemsConfig, List<UpgradeItemConfig> upgradeItems,
          IReadOnlyList<AbilityItemConfig> abilityItems, DailyRewardView dailyRewardView, CurrencyView currencyView,
          FightWindowView fightWindowView, StartFightView startFightView)
     {
@@ -48,6 +48,12 @@ public class MainController : BaseController
         OnChangeGameState(_profilePlayer.CurrentState.Value);
         profilePlayer.CurrentState.SubscribeOnChange(OnChangeGameState);
         _inventoryModel = new InventoryModel();
+
+        if (_shedController == null)
+        {
+            _shedController = new ShedController(_upgradeItems, profilePlayer.CurrentCar, placeForUi, _inventoryModel);
+            _shedController.Exit();
+        }
     }
 
     protected override void OnDispose()
@@ -67,15 +73,19 @@ public class MainController : BaseController
                 _gameController?.Dispose();
                 break;
             case GameState.Game:
-                var inventoryModel = new InventoryModel();
-                _gameController = new GameController(_player, _abilityItems, inventoryModel, _placeForUi);
-                _startFightController = new StartFightController(_placeForUi, _startFightView, _profilePlayer);
-                _startFightController.RefreshView();
+                _gameController = new GameController(_player, _abilityItems, _inventoryModel, _placeForUi);
+                var abilityRepository = new AbilityRepository(_abilityItems);
+                var abilityView = Object.Instantiate(ResourceLoader.LoadPrefab(new ResourcePath() { PathResource = "Prefabs/AbilityView" }), _placeForUi).GetComponent<IAbilityCollectionView>();
+                var carController = new CarController();
+                AddController(carController);
+                var invModel = new InventoryModel();
+                var abilitiesController = new AbilitiesController(carController, invModel, abilityRepository, abilityView, _shedController._upgradeItemsRepository);
+                abilitiesController.ShowAbilities();
+                AddController(abilitiesController);
                 _mainMenuController?.Dispose();
-                _fightWindowController?.Dispose();
                 break;
             case GameState.Shed: if (_shedController == null)
-                    _shedController = new ShedController(_upgradeItems, _itemsConfig, _car, _inventoryModel);
+                    _shedController = new ShedController(_upgradeItems, _car, _placeForUi, _inventoryModel);
                 else _shedController.Enter();
                 break;
             case GameState.DailyReward:

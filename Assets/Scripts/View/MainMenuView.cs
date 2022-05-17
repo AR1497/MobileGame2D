@@ -14,6 +14,7 @@ public class MainMenuView : MonoBehaviour
         _buttonStart.onClick.AddListener(startGame);
         _buttonWatchDailyReward.onClick.AddListener(watchDailyReward);
         _buttonExitGame.onClick.AddListener(ExitGame);
+        _buttonInventory.onClick.AddListener(shed);
     }
     protected void OnDestroy()
     {

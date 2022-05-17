@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Railing
   m_EditorClassIdentifier: 
   id: 1
-  title: Railing
+  _title: 
+  _image: {fileID: 8051579698515443948, guid: a9c136f9dcfd3954fa0f3fab6260607f, type: 3}

@@ -19,6 +19,7 @@ using UnityEngine;
     {
         _leftMove.Value = value;
     }
+
     protected virtual void OnRightMove(float value)
     {
         _rightMove.Value = value;

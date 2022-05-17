@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f11ab597ce2dff4d8a0e3e047d53f9b, type: 3}
   m_Name: UpgradeItemConfigDataSource
   m_EditorClassIdentifier: 
-  itemConfigs: []
+  _itemConfigs:
+  - {fileID: 11400000, guid: 3cf643396010c584fb06ef813f66c429, type: 2}

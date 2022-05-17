@@ -11,12 +11,6 @@ public class InventoryController : BaseController, IInventoryController
     private List<ItemConfig> itemsConfig;
     private InventoryModel inventoryModel;
 
-    public InventoryController(List<ItemConfig> itemsConfig, InventoryModel inventoryModel)
-    {
-        this.itemsConfig = itemsConfig;
-        this.inventoryModel = inventoryModel;
-    }
-
     public InventoryController(
     [NotNull] IInventoryModel inventoryModel,
     [NotNull] IItemsRepository itemsRepository,

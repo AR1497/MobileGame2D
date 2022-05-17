@@ -21,11 +21,11 @@ public class AbilityItemView : MonoBehaviour
     {
         _button.onClick.RemoveAllListeners();
     }
+
     private void Awake()
     {
         _button.onClick.AddListener(Click);
     }
-
 
     private void Click()
     {

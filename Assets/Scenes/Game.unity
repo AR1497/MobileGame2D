@@ -806,10 +806,14 @@ MonoBehaviour:
   _abilityItems:
   - {fileID: 11400000, guid: 8fe3e975fb0d8e0449732ac1c46f87b5, type: 2}
   _placeForUi: {fileID: 0}
-  _dailyRewardView: {fileID: 0}
-  _currencyView: {fileID: 0}
-  _fightWindowView: {fileID: 0}
-  _startFightView: {fileID: 0}
+  _dailyRewardView: {fileID: 71566462713657933, guid: ab42931899587584dac8f9aad1d31e8c,
+    type: 3}
+  _currencyView: {fileID: 7319272023191168308, guid: 073547073e70a044383b6934fbab69ad,
+    type: 3}
+  _fightWindowView: {fileID: 8051773541644252706, guid: e22c511cc8b914b4d8f438492151cbdb,
+    type: 3}
+  _startFightView: {fileID: 5083219740360597217, guid: 212c1aeb61675744cba0bfed1d8d5b3d,
+    type: 3}
 --- !u!4 &1786267221
 Transform:
   m_ObjectHideFlags: 0

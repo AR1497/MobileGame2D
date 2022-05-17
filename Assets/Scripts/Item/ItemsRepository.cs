@@ -7,7 +7,7 @@ public class ItemsRepository : BaseController, IItemsRepository
     #region Life cycle
     public ItemsRepository(List<ItemConfig> itemConfigs)
     {
-        PopulateItems(itemConfigs);
+        PopulateItems(ref _itemsMapById, itemConfigs);
     }
 
     protected override void OnDispose()
@@ -15,7 +15,7 @@ public class ItemsRepository : BaseController, IItemsRepository
         _itemsMapById.Clear();
     }
 
-    private void PopulateItems(List<ItemConfig> configs)
+    private void PopulateItems(ref Dictionary<int, IItem> upgrateHandlesMapByType, List<ItemConfig> configs)
     {
         foreach (var config in configs)
         {
@@ -31,7 +31,7 @@ public class ItemsRepository : BaseController, IItemsRepository
         return new Item
         {
             Id = itemConfig.Id,
-            Info = new ItemInfo { Title = itemConfig.Title }
+            Info = new ItemInfo { Title = itemConfig.Title, Sprite = itemConfig.Image }
         };
     }
     #endregion

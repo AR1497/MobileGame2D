@@ -11,7 +11,7 @@ public class ShedController : BaseController
     private readonly IReadOnlyList<UpgradeItemConfig> _upgradeItems;
     private readonly Car _car;
     private readonly UpgradeHandlersRepository _upgradeRepository;
-    private readonly ItemsRepository _upgradeItemsRepository;
+    public readonly ItemsRepository _upgradeItemsRepository;
     private readonly InventoryController _inventoryController;
     private readonly InventoryModel _inventoryModel;
     private readonly IInventoryView _inventoryView;
@@ -19,7 +19,7 @@ public class ShedController : BaseController
     private List<ItemConfig> itemsConfig;
     private Car currentCar;
 
-    public ShedController([NotNull] List<UpgradeItemConfig> upgradeItems, [NotNull] Car car, [NotNull] Transform placeForUi, InventoryModel inventoryModel)
+    public ShedController([NotNull] IReadOnlyList<UpgradeItemConfig> upgradeItems, [NotNull] Car car, [NotNull] Transform placeForUi, InventoryModel inventoryModel)
     {
         _inventoryView = LoadView(placeForUi);
         if (upgradeItems == null) throw new ArgumentNullException(nameof(upgradeItems));
@@ -32,13 +32,6 @@ public class ShedController : BaseController
         _inventoryController = new InventoryController(_inventoryModel, _upgradeItemsRepository, _inventoryView);
         AddController(_inventoryController);
         Enter();
-    }
-
-    public ShedController(IReadOnlyList<UpgradeItemConfig> upgradeItems, List<ItemConfig> itemsConfig, Car currentCar, InventoryModel _inventoryModel)
-    {
-        this.upgradeItems = upgradeItems;
-        this.itemsConfig = itemsConfig;
-        this.currentCar = currentCar;
     }
 
     #region IShedController

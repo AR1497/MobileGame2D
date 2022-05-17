@@ -9,6 +9,7 @@ public abstract class BaseController : IDisposible
     private List<BaseController> _controllers = new List<BaseController>();
 
     private bool _isDisposed;
+
     public void Dispose()
     {
         if (_isDisposed)

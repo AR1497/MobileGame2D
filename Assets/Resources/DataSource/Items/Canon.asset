@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Canon
   m_EditorClassIdentifier: 
   id: 2
-  title: Canon
+  _title: 
+  _image: {fileID: 21300000, guid: bc15c6ea9b0124465b164fd3e89c578d, type: 3}
