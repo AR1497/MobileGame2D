@@ -47,6 +47,7 @@ public class MainController : BaseController
 
         OnChangeGameState(_profilePlayer.CurrentState.Value);
         profilePlayer.CurrentState.SubscribeOnChange(OnChangeGameState);
+        _player = new PlayerData(_profilePlayer.CurrentCar.Speed, _profilePlayer.AdsShower, _profilePlayer.AnalyticTools);
         _inventoryModel = new InventoryModel();
 
         if (_shedController == null)
