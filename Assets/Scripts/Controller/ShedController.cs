@@ -7,7 +7,7 @@ using Object = UnityEngine.Object;
 
 public class ShedController : BaseController
 {
-    private readonly ResourcePath _viewPath = new ResourcePath { PathResource = "Prefabs/Item" };
+    private readonly ResourcePath _viewPath = new ResourcePath { PathResource = "Prefabs/Inventory" };
     private readonly IReadOnlyList<UpgradeItemConfig> _upgradeItems;
     private readonly Car _car;
     private readonly UpgradeHandlersRepository _upgradeRepository;

@@ -84,9 +84,9 @@ public class MainController : BaseController
                 AddController(abilitiesController);
                 _mainMenuController?.Dispose();
                 break;
-            case GameState.Shed: if (_shedController == null)
-                    _shedController = new ShedController(_upgradeItems, _car, _placeForUi, _inventoryModel);
-                else _shedController.Enter();
+            case GameState.Shed: if (_shedController != null)
+                    //_shedController = new ShedController(_upgradeItems, _car, _placeForUi, _inventoryModel);
+                /*else*/ _shedController.Enter();
                 break;
             case GameState.DailyReward:
                 _dailyRewardController = new DailyRewardController(_placeForUi,
