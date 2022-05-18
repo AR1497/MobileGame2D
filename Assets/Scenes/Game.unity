@@ -805,7 +805,7 @@ MonoBehaviour:
   _upgradeSource: {fileID: 11400000, guid: 30bf49f9ff08de847902d833cf4b52a0, type: 2}
   _abilityItems:
   - {fileID: 11400000, guid: 8fe3e975fb0d8e0449732ac1c46f87b5, type: 2}
-  _placeForUi: {fileID: 0}
+  _placeForUi: {fileID: 1451287536}
   _dailyRewardView: {fileID: 71566462713657933, guid: ab42931899587584dac8f9aad1d31e8c,
     type: 3}
   _currencyView: {fileID: 7319272023191168308, guid: 073547073e70a044383b6934fbab69ad,

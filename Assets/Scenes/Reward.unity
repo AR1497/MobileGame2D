@@ -1248,6 +1248,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dailyRewardView: {fileID: 721584954}
+  _placeForUi: {fileID: 1940454199}
+  _currencyView: {fileID: 289928393}
 --- !u!1001 &71566463334513015
 PrefabInstance:
   m_ObjectHideFlags: 0

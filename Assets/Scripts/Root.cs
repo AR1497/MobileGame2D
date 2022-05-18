@@ -35,7 +35,7 @@ public class Root : MonoBehaviour
         _analyticsTools = new UnityAnalyticTools();
         ProfilePlayer profilePlayer = new ProfilePlayer(15f, new UnityAdsTools(), new UnityAnalyticTools());
         profilePlayer.CurrentState.Value = GameState.Start;
-        _mainController = new MainController(_placeForUi, _playerProfile, _items, _upgradeSource.ItemConfigs.ToList(), _abilityItems, _dailyRewardView, _currencyView, _fightWindowView, _startFightView);
+        _mainController = new MainController(_placeForUi, profilePlayer, _items, _upgradeSource.ItemConfigs.ToList(), _abilityItems, _dailyRewardView, _currencyView, _fightWindowView, _startFightView);
     }
 
     private void OnDestroy()
