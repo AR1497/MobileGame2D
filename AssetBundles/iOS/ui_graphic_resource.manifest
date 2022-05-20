@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 4219680378
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 25585e5aec436be49385281158504170
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: b0363f7088f9761414f730641bf9a24b
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/simple UI & icons/icons/icon_02.png
+- Assets/simple UI & icons/icons/icon_01.png
+- Assets/simple UI & icons/icons/icon_03.png
+Dependencies: []
