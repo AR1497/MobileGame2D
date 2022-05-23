@@ -22,6 +22,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Prefab
+  - m_GUID: a410e7532634bcb4d8daa144bba09883
+    m_Address: Prefabs/SpawnButton
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Prefab
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: dc8264eb412507744b46519af113e0a0, type: 2}
   m_SchemaSet:
