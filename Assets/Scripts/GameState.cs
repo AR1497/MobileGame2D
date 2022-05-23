@@ -1,6 +1,9 @@
 ﻿public enum GameState
 {
     None,
-    Menu,
+    Start,
+    DailyReward,
+    Fight,
+    Shed,
     Game
 }
